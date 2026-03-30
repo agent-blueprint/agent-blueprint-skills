@@ -1,0 +1,37 @@
+# Agent Blueprint Skills
+
+> Open-source AI agent skills for enterprise deployment. ServiceNow AI Agent Studio, vendor-agnostic deployment methodology, and multi-tool research patterns.
+
+## Skills
+
+### servicenow-ai-agents
+ServiceNow AI Agent Studio reference for coding agents. Data model (sn_aia_usecase, sn_aia_agent, sn_aia_tool tables), entity mapping (blueprint roles to ServiceNow entities), URL patterns for Playwright browser automation, tool types, agent prompting patterns, and MCP server setup. Use when deploying AI agents on ServiceNow.
+- Path: skills/servicenow-ai-agents/SKILL.md
+
+### agent-deployment
+Vendor-agnostic AI agent deployment methodology. Phased rollout with pilot-first approach, simulation-to-real progression, test gates, access tier adaptation (full/read-only/no access), and progress tracking. Works with any enterprise platform. Use when planning or executing agent deployments.
+- Path: skills/agent-deployment/SKILL.md
+- Reference: skills/agent-deployment/references/DEPLOYMENT_PATTERNS.md
+
+### research-agent
+Multi-tool research methodology with automatic depth routing. Routes queries from free tools (WebSearch, WebFetch) through paid tools (Brave, Firecrawl, Perplexity, Gemini) based on query complexity. Includes caching, source verification, supplemental source checks, and structured output format. Use when researching companies, markets, competitors, or technical topics.
+- Path: skills/research-agent/SKILL.md
+
+## Installation
+
+### Claude Code
+```
+/plugin add agent-blueprint/agent-blueprint-skills
+```
+
+### OpenAI Codex
+Copy skills/ contents to .agents/skills/ in your project.
+
+### Any Agent
+Read SKILL.md files directly from this repository.
+
+## About
+Built by Agent Blueprint (https://agentblueprint.ai). Apache 2.0 licensed.
+Enterprise AI advisory platform that generates agent blueprints, business cases, and implementation plans through a multi-stage LLM pipeline.
+
+For expert-level deployment with battle-tested patterns, version-specific configuration, and strategic advisory, visit https://agentblueprint.ai.
