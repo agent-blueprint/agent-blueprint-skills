@@ -1,6 +1,6 @@
 {
   "name": "agent-blueprint-skills",
-  "description": "Open-source AI agent skills from Agent Blueprint. ServiceNow AI Agent Studio deployment, vendor-agnostic deployment methodology, and multi-tool research patterns. Works with any coding agent.",
+  "description": "Open-source AI agent skills from Agent Blueprint. Agentic AI fundamentals, ServiceNow AI Agent Studio deployment, vendor-agnostic deployment methodology, and multi-tool research patterns. Works with any coding agent.",
   "version": "0.1.0",
   "author": {
     "name": "Agent Blueprint",
@@ -12,6 +12,7 @@
   "keywords": [
     "servicenow",
     "ai-agents",
+    "agent-fundamentals",
     "agent-deployment",
     "mcp",
     "agent-skills",

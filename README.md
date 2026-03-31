@@ -2,10 +2,11 @@
 
 Open-source AI agent skills for enterprise deployment. Built for coding agents (Claude Code, Codex, Cursor, Copilot, Windsurf) using the [Agent Skills](https://agentskills.io) open standard.
 
-**Three skills. Zero vendor lock-in. Works with any coding agent.**
+**Four skills. Zero vendor lock-in. Works with any coding agent.**
 
 | Skill | What it does |
 |-------|-------------|
+| [agent-fundamentals](plugins/agent-blueprint-skills/skills/agent-fundamentals/SKILL.md) | Agentic AI fundamentals: what agents are, when to use them vs. workflows, architecture patterns, decision frameworks, failure modes, worked examples |
 | [servicenow-ai-agents](plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md) | ServiceNow AI Agent Studio reference: data model, entity mapping, tool types, prompting patterns, browser navigation, MCP setup |
 | [agent-deployment](plugins/agent-blueprint-skills/skills/agent-deployment/SKILL.md) | Vendor-agnostic deployment methodology: phased rollout, pilot-first, test gates, access tier adaptation |
 | [research-agent](plugins/agent-blueprint-skills/skills/research-agent/SKILL.md) | Multi-tool research with automatic depth routing: free tools first, paid escalation, caching, structured output |
@@ -59,6 +60,17 @@ curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-bluepri
 ```
 
 ## What's in each skill
+
+### agent-fundamentals
+
+A practical guide for understanding AI agents in enterprise environments:
+
+- **Agent vs. workflow vs. chatbot**: When do you actually need an agent? Decision framework with clear criteria
+- **Anatomy of an agent**: Instructions, tools, memory, guardrails, orchestration
+- **Architecture patterns**: Single agent, orchestrator + workers, pipeline, human-in-the-loop — with selection criteria
+- **Common failure modes**: Over-agenting, tool sprawl, vague instructions, missing guardrails, skipping validation
+- **Use case evaluation framework**: 9-question walkthrough to determine if a process needs an agent
+- **Worked examples**: Three detailed walkthroughs (simple ticket triage, workflow-not-agent invoice processing, complex multi-agent procurement)
 
 ### servicenow-ai-agents
 

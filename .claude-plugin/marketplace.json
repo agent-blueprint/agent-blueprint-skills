@@ -8,7 +8,7 @@
     {
       "name": "agent-blueprint-skills",
       "source": "./plugins/agent-blueprint-skills",
-      "description": "ServiceNow AI Agent Studio deployment, vendor-agnostic deployment methodology, and multi-tool research patterns."
+      "description": "Agentic AI fundamentals, ServiceNow AI Agent Studio deployment, vendor-agnostic deployment methodology, and multi-tool research patterns."
     }
   ]
 }

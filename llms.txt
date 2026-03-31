@@ -4,6 +4,11 @@
 
 ## Skills
 
+### agent-fundamentals
+Agentic AI fundamentals for enterprise. What agents are, when to use them vs. workflows or chatbots, agent anatomy, architecture patterns (single agent, orchestrator + workers, pipeline, human-in-the-loop), decision frameworks, common failure modes, and worked examples. Use when someone is new to agents or evaluating whether agents fit their use case.
+- Path: plugins/agent-blueprint-skills/skills/agent-fundamentals/SKILL.md
+- Reference: plugins/agent-blueprint-skills/skills/agent-fundamentals/references/WORKED_EXAMPLES.md
+
 ### servicenow-ai-agents
 ServiceNow AI Agent Studio reference for coding agents. Data model (sn_aia_usecase, sn_aia_agent, sn_aia_tool tables), entity mapping (blueprint roles to ServiceNow entities), URL patterns for Playwright browser automation, tool types, agent prompting patterns, and MCP server setup. Use when deploying AI agents on ServiceNow.
 - Path: plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md
