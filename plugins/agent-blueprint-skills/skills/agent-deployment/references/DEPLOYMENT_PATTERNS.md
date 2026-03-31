@@ -6,16 +6,19 @@ A pilot with simulation scripts proves the agent can chain tools. A real pilot
 proves the agent delivers business value. Only the second justifies expansion.
 
 Enterprise consensus:
-- Orgs that validate pilots with real data scale 2.5x faster than those using
-  simulation-only validation (Microsoft Agent Readiness Framework).
-- 46% of orgs cite integration as their #1 obstacle to scaling agents (Claude
-  2026 State of AI Agents). Simulation hides integration problems until scale-up,
+- Microsoft's Agent Readiness Framework found that high-readiness orgs
+  ("Achievers") scale AI agents 2.5x faster than low-readiness orgs
+  ("Discoverers"). Real-data pilots are a key differentiator between the two
+  groups.
+- 46% of orgs cite integration as their #1 obstacle to scaling agents (Anthropic,
+  2026 State of AI Agents Report). Simulation hides integration problems until scale-up,
   when fixing them requires redesign across ALL agents simultaneously.
 - Simulation pilots generate zero measurable business value. Leaders approve
-  expansion based on "this agent reduced reconciliation time by 40%", not "the
-  LLM chains tools correctly with fake data" (McKinsey agentic AI research).
-- Forrester's dual-roadmap model: skills roadmap + foundations roadmap must
-  advance in lockstep. A simulation pilot validates the skills roadmap but leaves
+  expansion based on real metrics ("this agent reduced reconciliation time by
+  40%"), not technical demonstrations ("the LLM chains tools correctly with fake
+  data"). Real pilot data is what gets budget for Phase 2.
+- Forrester recommends parallel, synchronized roadmaps: skills roadmap +
+  foundations roadmap must advance in lockstep. A simulation pilot validates the skills roadmap but leaves
   the foundations roadmap (governance, observability, security, integrations)
   completely unvalidated.
 

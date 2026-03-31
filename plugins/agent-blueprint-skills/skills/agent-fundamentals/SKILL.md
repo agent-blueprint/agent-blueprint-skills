@@ -59,10 +59,9 @@ and LangChain as of 2026.
 Anthropic's core principle: "Find the simplest solution possible, and only
 increase complexity when needed."
 
-This is backed by data: 80% of successful production deployments use workflows
-or workflow-plus-LLM, not autonomous agents (LangChain State of Agent
-Engineering, 2026). Only 2-3% of real production workloads need fully
-autonomous agents.
+This is backed by industry experience: most successful production deployments
+use workflows or workflow-plus-LLM, not autonomous agents. Only a small
+fraction of real production workloads need fully autonomous agents.
 
 ### Use an agent when:
 - The task requires interpreting unstructured input and deciding what to do
@@ -126,11 +125,11 @@ inputs/outputs. Tools connect the agent to systems:
 
 An agent without tools is just a chatbot.
 
-**Tool count matters.** Research shows LLM performance degrades at 20-100 tools
-and collapses at larger counts (arxiv 2603.22608, March 2026). Anthropic's
-heuristic: use dynamic tool loading when you have more than 10 tools or tool
-definitions consume more than 10K tokens. If an agent needs many tools, split
-into multiple agents with focused tool sets.
+**Tool count matters.** LLM performance degrades as tool count grows. Models
+pick the wrong tool more often, hallucinate tool names, and spend more tokens
+on selection logic. Anthropic's heuristic: use dynamic tool loading when you
+have more than 10 tools or tool definitions consume more than 10K tokens. If
+an agent needs many tools, split into multiple agents with focused tool sets.
 
 Anthropic also recommends: "Poka-yoke your tools" -- design tool interfaces
 so it's harder to make mistakes. Rich descriptions with examples improve
@@ -245,8 +244,8 @@ in 2024 (S&P Global). Understanding why helps avoid the same mistakes.
 
 | Failure | What happens | Evidence |
 |---------|-------------|----------|
-| **Over-agenting** | Using agents for tasks workflows handle better. High cost, low reliability. | 80% of successful deployments are workflows, not agents (LangChain 2026) |
-| **Tool sprawl** | Too many tools. LLM picks wrong ones, hallucinates tool names. | Performance collapses beyond 20-100 tools (arxiv 2603.22608). Anthropic recommends tool search at >10 tools. |
+| **Over-agenting** | Using agents for tasks workflows handle better. High cost, low reliability. | Most successful deployments are workflows, not agents (Anthropic 2024, LangChain 2026) |
+| **Tool sprawl** | Too many tools. LLM picks wrong ones, hallucinates tool names. | Anthropic recommends dynamic tool loading at >10 tools or >10K tokens of tool definitions. |
 | **Vague instructions** | Inconsistent behavior. Same input produces different results. | Anthropic: instructions should read like "a great docstring for a junior developer" |
 | **Missing guardrails** | Agent sends wrong emails, updates wrong records, surfaces confidential data. | 88% of orgs with agents report security incidents (Gravitee 2026) |
 | **Skipping validation** | "Works in demos" but fails on real data. No execution trace review. | Only 52% run offline evaluations, 37% run online evaluations (LangChain 2026) |
@@ -345,8 +344,7 @@ The progression: **understand** (this skill) → **deploy** (agent-deployment) �
 - Gartner, Agentic AI Predictions (June 2025)
 - Gravitee/Beam.ai, "AI Agent Sprawl" (2026)
 - HBR/Workato, "Enterprise AI Trust Gap" (2026)
-- arxiv 2603.22608, Tool count degradation research (March 2026)
 
 ---
 
-*Built by [Agent Blueprint](https://agentblueprint.ai) — AI advisory for enterprise agent deployment.*
+*Built by [Agent Blueprint](https://agentblueprint.ai) -- AI advisory for enterprise agent deployment.*
