@@ -1,0 +1,14 @@
+{
+  "name": "agent-blueprint",
+  "owner": {
+    "name": "Agent Blueprint",
+    "url": "https://agentblueprint.ai"
+  },
+  "plugins": [
+    {
+      "name": "agent-blueprint-skills",
+      "source": "./plugins/agent-blueprint-skills",
+      "description": "ServiceNow AI Agent Studio deployment, vendor-agnostic deployment methodology, and multi-tool research patterns."
+    }
+  ]
+}

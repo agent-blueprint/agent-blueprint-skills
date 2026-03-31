@@ -6,16 +6,19 @@ Open-source AI agent skills for enterprise deployment. Built for coding agents (
 
 | Skill | What it does |
 |-------|-------------|
-| [servicenow-ai-agents](skills/servicenow-ai-agents/SKILL.md) | ServiceNow AI Agent Studio reference: data model, entity mapping, tool types, prompting patterns, browser navigation, MCP setup |
-| [agent-deployment](skills/agent-deployment/SKILL.md) | Vendor-agnostic deployment methodology: phased rollout, pilot-first, test gates, access tier adaptation |
-| [research-agent](skills/research-agent/SKILL.md) | Multi-tool research with automatic depth routing: free tools first, paid escalation, caching, structured output |
+| [servicenow-ai-agents](plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md) | ServiceNow AI Agent Studio reference: data model, entity mapping, tool types, prompting patterns, browser navigation, MCP setup |
+| [agent-deployment](plugins/agent-blueprint-skills/skills/agent-deployment/SKILL.md) | Vendor-agnostic deployment methodology: phased rollout, pilot-first, test gates, access tier adaptation |
+| [research-agent](plugins/agent-blueprint-skills/skills/research-agent/SKILL.md) | Multi-tool research with automatic depth routing: free tools first, paid escalation, caching, structured output |
 
 ## Install
 
-### Claude Code (plugin)
+### Claude Code
 
-```bash
-/plugin add agent-blueprint/agent-blueprint-skills
+Add the marketplace, then install the plugin:
+
+```
+/plugin marketplace add agent-blueprint/agent-blueprint-skills
+/plugin install agent-blueprint-skills@agent-blueprint
 ```
 
 Skills appear in your session automatically. Claude loads them when your task matches the skill description.
@@ -26,10 +29,8 @@ Copy skills into your project:
 
 ```bash
 git clone https://github.com/agent-blueprint/agent-blueprint-skills.git /tmp/ab-skills
-cp -r /tmp/ab-skills/skills/* .agents/skills/
+cp -r /tmp/ab-skills/plugins/agent-blueprint-skills/skills/* .agents/skills/
 ```
-
-Or reference them directly from this repo.
 
 ### Cursor / Copilot / Windsurf / Any Agent
 
@@ -40,6 +41,7 @@ git clone https://github.com/agent-blueprint/agent-blueprint-skills.git .agent-s
 ```
 
 The SKILL.md format is an open standard. Any agent that reads markdown can use these skills.
+Skills are in `plugins/agent-blueprint-skills/skills/`.
 
 ### Manual (single skill)
 
@@ -47,13 +49,13 @@ Copy just the skill you need:
 
 ```bash
 # ServiceNow AI Agents
-curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/skills/servicenow-ai-agents/SKILL.md
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md
 
 # Deployment Methodology
-curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/skills/agent-deployment/SKILL.md
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/agent-deployment/SKILL.md
 
 # Research Agent
-curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/skills/research-agent/SKILL.md
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/research-agent/SKILL.md
 ```
 
 ## What's in each skill
