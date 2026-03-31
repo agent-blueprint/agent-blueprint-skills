@@ -17,10 +17,5 @@
     "agent-skills",
     "research",
     "enterprise-ai"
-  ],
-  "skills": [
-    "skills/servicenow-ai-agents",
-    "skills/agent-deployment",
-    "skills/research-agent"
   ]
 }
