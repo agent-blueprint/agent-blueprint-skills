@@ -65,8 +65,11 @@ require the user to act (UI-only config, credential vaults, approval workflows).
 end-to-end before expanding.
 
 ### Step 1: Read the implementation roadmap
-Identify Phase 1 agents and the lead agent. If no formal roadmap exists,
-pick the agent with the clearest business value and fewest dependencies.
+The blueprint's implementation plan defines what gets built in each phase.
+Identify the Phase 1 agents exactly as specified — typically one orchestrator
+and one worker. Do not add agents from later phases. If the blueprint has no
+phased roadmap, pick the single agent with the clearest business value and
+fewest dependencies.
 
 ### Step 2: Set up platform access
 Follow the platform skill's setup instructions if one is loaded. Otherwise,
@@ -77,11 +80,15 @@ Explore schemas, existing config, and platform version before creating
 anything. Never assume you know the schema. Query it.
 
 ### Step 4: Create Phase 1 records
-Agents, teams, workflows, tools, and linking records. Note: the blueprint
-may define a Manager/Orchestrator agent alongside Workers. On most platforms,
-the Manager maps to the native orchestration layer (workflow, pipeline,
-coordinator), not a separate agent record. Check the platform skill for
-the exact entity mapping.
+Agents, teams, workflows, tools, and linking records. **Create only the
+agents specified for Phase 1 in the implementation plan.** If you are about
+to create more worker agents than the plan specifies for this phase, stop
+and confirm with the user before proceeding.
+
+Note: the blueprint may define a Manager/Orchestrator agent alongside
+Workers. On most platforms, the Manager maps to the native orchestration
+layer (workflow, pipeline, coordinator), not a separate agent record. Check
+the platform skill for the exact entity mapping.
 
 ### Step 5: Organize records
 Move records into the appropriate scope or project structure.
@@ -111,9 +118,11 @@ data sources, APIs, and platform tables. See
 [references/DEPLOYMENT_PATTERNS.md](references/DEPLOYMENT_PATTERNS.md)
 for the progression pattern.
 
-### Step 11: Expand
-Only after the pilot passes end-to-end with real data, expand to remaining
-agents. Each new agent follows the same simulation-to-real progression.
+### Step 11: Expand to next phase
+**Do not build Phase 2 agents before Phase 1 is validated with real data.**
+After Phase 1 passes end-to-end with real integrations, proceed to Phase 2
+agents as defined in the implementation plan. Each new agent follows the same
+simulation-to-real progression (Steps 7-10).
 
 ---
 
