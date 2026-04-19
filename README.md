@@ -2,7 +2,9 @@
 
 Open-source AI agent skills for enterprise deployment. Built for coding agents (Claude Code, Codex, Cursor, Copilot, Windsurf) using the [Agent Skills](https://agentskills.io) open standard.
 
-**Four skills. Zero vendor lock-in. Works with any coding agent.**
+**7 skills. Zero vendor lock-in. Works with any coding agent.**
+
+### Skills
 
 | Skill | What it does |
 |-------|-------------|
@@ -10,6 +12,16 @@ Open-source AI agent skills for enterprise deployment. Built for coding agents (
 | [servicenow-ai-agents](plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md) | ServiceNow AI Agent Studio reference: data model, entity mapping, tool types, prompting patterns, browser navigation, MCP setup |
 | [agent-deployment](plugins/agent-blueprint-skills/skills/agent-deployment/SKILL.md) | Vendor-agnostic deployment methodology: phased rollout, pilot-first, test gates, access tier adaptation |
 | [research-agent](plugins/agent-blueprint-skills/skills/research-agent/SKILL.md) | Multi-tool research with automatic depth routing: free tools first, paid escalation, caching, structured output |
+
+### Blueprint Patterns
+
+Pre-designed agent team architectures for common enterprise use cases. Each pattern describes the full agent team, roles, orchestration, and integration points. Use as a starting point, or generate a full customized blueprint via the [Agent Blueprint MCP server](https://github.com/agent-blueprint/mcp-server).
+
+| Pattern | What it does |
+|---------|-------------|
+| [it-service-desk-triage](plugins/agent-blueprint-skills/skills/it-service-desk-triage/SKILL.md) | 5-agent IT help desk: triage, classification, knowledge search, auto-resolution, escalation |
+| [procurement-rfx-processing](plugins/agent-blueprint-skills/skills/procurement-rfx-processing/SKILL.md) | 6-agent RFP/RFQ/RFI lifecycle: intake, requirements, vendor matching, compliance, evaluation, communication |
+| [customer-onboarding](plugins/agent-blueprint-skills/skills/customer-onboarding/SKILL.md) | 5-agent onboarding pipeline: intake, verification, provisioning, communication, handoff |
 
 ## Install
 
@@ -102,6 +114,42 @@ A reusable research methodology that routes queries through the right tools:
 - **Supplemental sources**: Financial filings, careers pages, reviews, competitive intel
 - **Caching**: Avoid redundant queries with freshness-aware cache
 - **Tool-agnostic**: Works with whatever MCP servers you have configured
+
+### Blueprint Patterns
+
+#### it-service-desk-triage
+
+A 5-agent architecture for automating IT service desk operations:
+
+- **Triage Agent**: Extracts structured data, sets priority, routes tickets
+- **Classification Agent**: Deep categorization, duplicate detection, assignment group recommendation
+- **Knowledge Search Agent**: Semantic search across knowledge base, relevance ranking
+- **Resolution Agent**: Auto-resolves known patterns (password resets, access requests, known errors)
+- **Escalation Agent**: Packages context for human analysts, monitors SLA compliance
+- **Orchestration**: Routing pattern with Knowledge Search as utility agent
+
+#### procurement-rfx-processing
+
+A 6-agent architecture for end-to-end RFx lifecycle automation:
+
+- **Intake Agent**: Extracts requirements from source documents, creates structured RFx record
+- **Requirements Agent**: Validates requirements, identifies gaps and conflicts, builds scoring rubric
+- **Vendor Matching Agent**: Identifies qualified vendors from database, past performance, compliance status
+- **Compliance Agent**: Validates regulatory and policy compliance at every stage
+- **Evaluation Agent**: Scores vendor responses, produces comparative analysis and award recommendation
+- **Communication Agent**: Manages all stakeholder and vendor communications
+- **Orchestration**: Orchestrator + Workers with parallel vendor matching and compliance
+
+#### customer-onboarding
+
+A 5-agent architecture for customer onboarding pipeline automation:
+
+- **Intake Agent**: Receives applications from any channel, validates completeness, sets risk tier
+- **Verification Agent**: Identity, compliance, KYC/AML, document validation
+- **Provisioning Agent**: Account creation, billing, access, integrations (parallel tasks)
+- **Communication Agent**: Status updates, document requests, activation packages
+- **Handoff Agent**: Transitions to ongoing service with structured CSM package
+- **Orchestration**: Pipeline with parallel branches, async waits for customer actions
 
 ## Cross-platform compatibility
 
