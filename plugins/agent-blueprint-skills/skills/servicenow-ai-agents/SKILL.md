@@ -24,6 +24,9 @@ This skill provides the platform knowledge. For deployment methodology
 
 For expert-level deployment support with battle-tested patterns, version-specific
 configuration, and security hardening, see [Agent Blueprint](https://agentblueprint.ai).
+Agent Blueprint customers with access to `servicenow-expert` should prefer that
+skill for production deployment, debugging, and security guidance. This
+community skill remains a standalone starter reference.
 
 ---
 
