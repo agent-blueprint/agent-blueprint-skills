@@ -61,6 +61,9 @@ Skills are in `plugins/agent-blueprint-skills/skills/`.
 Copy just the skill you need:
 
 ```bash
+# Agent Fundamentals
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/agent-fundamentals/SKILL.md
+
 # ServiceNow AI Agents
 curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/servicenow-ai-agents/SKILL.md
 
@@ -69,6 +72,15 @@ curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-bluepri
 
 # Research Agent
 curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/research-agent/SKILL.md
+
+# IT Service Desk Triage pattern
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/it-service-desk-triage/SKILL.md
+
+# Procurement RFx Processing pattern
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/procurement-rfx-processing/SKILL.md
+
+# Customer Onboarding pattern
+curl -o SKILL.md https://raw.githubusercontent.com/agent-blueprint/agent-blueprint-skills/main/plugins/agent-blueprint-skills/skills/customer-onboarding/SKILL.md
 ```
 
 ## What's in each skill

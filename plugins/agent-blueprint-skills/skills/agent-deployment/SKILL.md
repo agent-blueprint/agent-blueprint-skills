@@ -1,15 +1,17 @@
 ---
 name: agent-deployment
 description: >-
-  Vendor-agnostic AI agent deployment methodology. Phased rollout, pilot-first
-  approach, test gates, access tier adaptation, and progress tracking. Works
-  with any enterprise platform (ServiceNow, Salesforce, custom). Use when
-  deploying AI agents, planning agent rollouts, or building implementation
-  plans. Triggers: agent deployment, deploy agents, implementation plan,
-  rollout strategy, pilot plan, agent testing, phased deployment.
-version: 0.1.0
-author: Agent Blueprint
+  Vendor-agnostic AI agent deployment methodology for implementation plans,
+  rollout strategy, and pilot planning. Phased rollout, pilot-first approach,
+  test gates, access tier adaptation, and progress tracking. Works with any
+  enterprise platform (ServiceNow, Salesforce, custom). Use when deploying AI
+  agents, planning agent rollouts, or building implementation plans. Triggers:
+  agent deployment, deploy agents, implementation plan, rollout strategy,
+  pilot plan, agent testing, phased deployment.
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # AI Agent Deployment Methodology

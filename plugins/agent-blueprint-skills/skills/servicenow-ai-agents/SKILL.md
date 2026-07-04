@@ -2,14 +2,16 @@
 name: servicenow-ai-agents
 description: >-
   ServiceNow AI Agent Studio reference for coding agents deploying AI agents
-  on ServiceNow. Data model, entity mapping, URL patterns, tool types,
-  prompting patterns, MCP setup, and browser navigation. Use when building,
-  configuring, or debugging AI agents on ServiceNow (Zurich or later).
-  Triggers: servicenow, AI Agent Studio, agent studio, sn_aia, agentic
-  workflow, now assist agents, servicenow agent deployment.
-version: 0.1.0
-author: Agent Blueprint
+  on ServiceNow: sn_aia data model, agentic workflows, and Now Assist agents.
+  Covers entity mapping, URL patterns, tool types, prompting patterns, MCP
+  setup, and browser navigation. Use when building, configuring, or debugging
+  AI agents on ServiceNow (Zurich or later). Triggers: servicenow, AI Agent
+  Studio, agent studio, sn_aia, agentic workflow, now assist agents,
+  servicenow agent deployment.
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # ServiceNow AI Agent Studio Reference

@@ -1,6 +1,6 @@
 # Agent Blueprint Skills
 
-> Open-source AI agent skills for enterprise deployment. ServiceNow AI Agent Studio, vendor-agnostic deployment methodology, and multi-tool research patterns.
+> Open-source AI agent skills for enterprise deployment. Agentic AI fundamentals, ServiceNow AI Agent Studio, vendor-agnostic deployment methodology, multi-tool research, and blueprint patterns for IT service desk triage, procurement RFx processing, and customer onboarding.
 
 ## Skills
 
@@ -21,6 +21,22 @@ Vendor-agnostic AI agent deployment methodology. Phased rollout with pilot-first
 ### research-agent
 Multi-tool research methodology with automatic depth routing. Routes queries from free tools (WebSearch, WebFetch) through paid tools (Brave, Firecrawl, Perplexity, Gemini) based on query complexity. Includes caching, source verification, supplemental source checks, and structured output format. Use when researching companies, markets, competitors, or technical topics.
 - Path: plugins/agent-blueprint-skills/skills/research-agent/SKILL.md
+
+## Blueprint Patterns
+
+Pre-designed agent team architectures for common enterprise use cases. Each pattern describes the agent team, roles, orchestration, integration points, key metrics, and common pitfalls.
+
+### it-service-desk-triage
+Blueprint pattern for a 5-agent IT service desk team: triage, classification, knowledge search, auto-resolution, and escalation with routing orchestration. Use when building IT help desk automation, ticket triage, or incident classification agents.
+- Path: plugins/agent-blueprint-skills/skills/it-service-desk-triage/SKILL.md
+
+### procurement-rfx-processing
+Blueprint pattern for a 6-agent procurement RFx team: intake, requirements, vendor matching, compliance, evaluation, and communication with orchestrator pattern. Use when building procurement automation, RFP/RFQ/RFI processing, or vendor evaluation agents.
+- Path: plugins/agent-blueprint-skills/skills/procurement-rfx-processing/SKILL.md
+
+### customer-onboarding
+Blueprint pattern for a 5-agent customer onboarding team: intake, verification, provisioning, communication, and handoff in a pipeline with parallel branches. Use when building customer onboarding automation, client intake, or account provisioning agents.
+- Path: plugins/agent-blueprint-skills/skills/customer-onboarding/SKILL.md
 
 ## Installation
 

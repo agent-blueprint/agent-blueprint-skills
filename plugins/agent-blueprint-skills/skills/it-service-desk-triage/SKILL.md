@@ -1,16 +1,18 @@
 ---
 name: it-service-desk-triage
 description: >-
-  Blueprint pattern for an AI agent team that triages, classifies, and resolves
-  IT service desk tickets. 5-agent architecture with routing orchestration.
-  Use when a user asks you to build IT help desk automation, ticket triage,
-  incident classification, service desk agents, or ITSM AI. Triggers: IT help
-  desk, ticket triage, service desk automation, incident classification, ITSM
-  agents, auto-resolve tickets, L1 support automation, help desk AI, incident
-  routing, service request automation, ticket categorization.
-version: 0.1.0
-author: Agent Blueprint
+  Blueprint pattern for an AI agent team for IT help desk and service desk
+  automation: ticket triage, incident classification, and ticket resolution.
+  5-agent architecture with routing orchestration. Use when a user asks you
+  to build IT help desk automation, ticket triage, incident classification,
+  service desk agents, or ITSM AI. Triggers: IT help desk, ticket triage,
+  service desk automation, incident classification, ITSM agents, auto-resolve
+  tickets, L1 support automation, help desk AI, incident routing, service
+  request automation, ticket categorization.
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # IT Service Desk Triage -- Agent Team Blueprint Pattern

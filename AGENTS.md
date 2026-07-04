@@ -23,7 +23,7 @@ Discoverable agent team architectures for common enterprise use cases. Each patt
 
 ## Skill Format
 
-Each skill is a single SKILL.md file with YAML frontmatter (name, description, version, author, license) followed by markdown content. Some skills include a `references/` subfolder with detailed guides and worked examples.
+Each skill is a single SKILL.md file with YAML frontmatter (name, description, license, plus version and author nested under metadata) followed by markdown content. Some skills include a `references/` subfolder with detailed guides and worked examples.
 
 ## Install
 

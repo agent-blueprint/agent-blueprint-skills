@@ -4,7 +4,7 @@ description: Get oriented with Agent Blueprint Skills. Run this after installing
 
 # Agent Blueprint Skills
 
-You have four skills available. Read the one that matches the user's task, then act on it.
+You have seven skills available: four core skills and three blueprint patterns. Read the one that matches the user's task, then act on it.
 
 ## What's installed
 
@@ -16,11 +16,17 @@ You have four skills available. Read the one that matches the user's task, then 
 
 4. **research-agent** -- Multi-tool research with automatic depth routing. Routes queries through free tools first, escalates to paid tools when needed. Load when researching companies, markets, or technical topics.
 
+5. **it-service-desk-triage** -- Blueprint pattern. 5-agent IT service desk team: triage, classification, knowledge search, auto-resolution, escalation. Load when building IT help desk automation.
+
+6. **procurement-rfx-processing** -- Blueprint pattern. 6-agent procurement team: intake, requirements, vendor matching, compliance, evaluation, communication. Load when building RFP/RFQ/RFI automation.
+
+7. **customer-onboarding** -- Blueprint pattern. 5-agent onboarding pipeline: intake, verification, provisioning, communication, handoff. Load when building customer onboarding automation.
+
 ## What to do now
 
 Ask the user:
 
-> What are you working on? I have skills for understanding AI agents, deploying them (including ServiceNow-specific guidance), planning phased rollouts, and multi-tool research. Where should we start?
+> What are you working on? I have skills for understanding AI agents, deploying them (including ServiceNow-specific guidance), planning phased rollouts, and multi-tool research, plus ready-made agent team patterns for IT service desk, procurement RFx, and customer onboarding. Where should we start?
 
 Then based on their answer:
 
@@ -28,6 +34,7 @@ Then based on their answer:
 - **ServiceNow agent deployment** -- Load `servicenow-ai-agents` AND `agent-deployment`. Follow the deployment sequence in `agent-deployment`, using `servicenow-ai-agents` for platform-specific details.
 - **Agent deployment on another platform** -- Load `agent-deployment`. Follow its deployment sequence. Use your own knowledge for platform specifics.
 - **Research task** -- Load `research-agent`. Follow its depth routing methodology.
+- **Common use case (help desk, procurement, onboarding)** -- Load the matching blueprint pattern for the agent team architecture, then `agent-deployment` when they're ready to build it.
 - **Planning / not sure yet** -- Load `agent-fundamentals` first to help them evaluate whether agents fit, then `agent-deployment` when they're ready to build.
 
 ## Ground rules

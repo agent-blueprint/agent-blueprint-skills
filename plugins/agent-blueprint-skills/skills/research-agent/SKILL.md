@@ -1,16 +1,19 @@
 ---
 name: research-agent
 description: >-
-  Multi-tool research methodology with automatic depth routing. Routes queries
-  through free tools first (web search, page scraping), escalates to paid tools
-  only when needed (Perplexity, Gemini Deep Research). Includes caching, source
-  verification, and structured output. Use when researching companies, topics,
-  markets, competitors, or any question requiring web information. Triggers:
-  research, look into, find out about, investigate, what do we know about,
-  deep research, company research, market analysis.
-version: 0.1.0
-author: Agent Blueprint
+  Multi-tool research methodology with automatic depth routing for company
+  research, market analysis, deep research, and competitive investigation.
+  Routes queries through free tools first (web search, page scraping),
+  escalates to paid tools only when needed (Perplexity, Gemini Deep Research).
+  Includes caching, source verification, and structured output. Use when
+  researching companies, topics, markets, competitors, or any question
+  requiring web information. Triggers: research, look into, find out about,
+  investigate, what do we know about, deep research, company research, market
+  analysis.
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # Research Agent
@@ -36,10 +39,14 @@ escalate when needed, cache everything, cite every claim.
 Assess the query and pick the right tool. Always start with the cheapest
 tool that can plausibly answer.
 
+"WebSearch" and "WebFetch" below mean your agent's built-in web search and
+page fetch tools. Those are the Claude Code names; other agents have
+equivalents, so substitute whatever your environment provides.
+
 | Depth | Tool | When to use | Speed | Cost |
 |-------|------|-------------|-------|------|
-| **Quick** | WebSearch (native) | Single fact, recent news, quick lookup | Seconds | Free |
-| **Scrape** | WebFetch (native) | Read a specific URL the user provides | Seconds | Free |
+| **Quick** | WebSearch (built-in) | Single fact, recent news, quick lookup | Seconds | Free |
+| **Scrape** | WebFetch (built-in) | Read a specific URL the user provides | Seconds | Free |
 | **Better scrape** | Firecrawl (MCP) | JS-heavy pages, structured extraction, WebFetch fails | Seconds | ~$0.01 |
 | **Broader** | Brave Search (MCP) | WebSearch results thin, need more results or domain filtering | Seconds | Free tier |
 | **Medium** | Perplexity Ask (MCP) | AI-synthesized answer with citations, multi-faceted questions | 5-10s | Small |
@@ -48,8 +55,8 @@ tool that can plausibly answer.
 
 ### Tool Priority
 
-1. **WebSearch** -- native, free, always try first
-2. **WebFetch** -- native, free, for reading specific URLs
+1. **WebSearch** -- built-in web search, free, always try first
+2. **WebFetch** -- built-in page fetch, free, for reading specific URLs
 3. **Brave Search** -- MCP, when WebSearch is insufficient
 4. **Firecrawl** -- MCP, when WebFetch fails (JS rendering, structured extraction)
 5. **Perplexity Ask** -- MCP, quick AI-synthesized answers with citations
@@ -180,8 +187,9 @@ Lead with what matters most. Don't pad.
 
 This skill references several MCP servers. Use what you have available:
 
-- **No MCP at all?** WebSearch and WebFetch (native tools) handle most quick
-  and medium research. You lose structured extraction (Firecrawl) and
+- **No MCP at all?** Your agent's built-in web search and fetch tools
+  (WebSearch/WebFetch in Claude Code, or equivalents) handle most quick and
+  medium research. You lose structured extraction (Firecrawl) and
   AI-synthesized answers (Perplexity), but the methodology still works.
 - **Only Brave Search?** Use it as your primary search. Skip Firecrawl steps.
 - **Only Perplexity?** Jump straight to medium/deep depth. Skip the free tier escalation.

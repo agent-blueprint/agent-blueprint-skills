@@ -1,7 +1,8 @@
 ---
 name: customer-onboarding
 description: >-
-  Blueprint pattern for an AI agent team that orchestrates customer onboarding.
+  Blueprint pattern for an AI agent team that orchestrates customer
+  onboarding: client intake, account setup, KYC, and onboarding automation.
   5-agent architecture with pipeline orchestration. Use when a user asks you
   to build customer onboarding automation, client intake, account provisioning,
   new customer setup, or onboarding workflow agents. Triggers: customer
@@ -9,9 +10,10 @@ description: >-
   automation, KYC, identity verification, customer provisioning, welcome
   workflow, client activation, account creation, onboarding agents,
   customer lifecycle.
-version: 0.1.0
-author: Agent Blueprint
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # Customer Onboarding -- Agent Team Blueprint Pattern

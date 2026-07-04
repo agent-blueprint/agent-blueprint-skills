@@ -2,15 +2,17 @@
 name: procurement-rfx-processing
 description: >-
   Blueprint pattern for an AI agent team that processes procurement RFx
-  documents (RFP, RFQ, RFI). 6-agent architecture with orchestrator pattern.
-  Use when a user asks you to build procurement automation, RFP processing,
-  vendor evaluation, sourcing agents, or supply chain AI. Triggers: RFP, RFQ,
-  RFI, procurement automation, vendor evaluation, sourcing, bid management,
+  documents (RFP, RFQ, RFI) for procurement automation, vendor evaluation,
+  and sourcing. 6-agent architecture with orchestrator pattern. Use when a
+  user asks you to build procurement automation, RFP processing, vendor
+  evaluation, sourcing agents, or supply chain AI. Triggers: RFP, RFQ, RFI,
+  procurement automation, vendor evaluation, sourcing, bid management,
   supplier selection, procurement agents, RFx processing, request for proposal,
   request for quote, vendor scoring, procurement workflow, strategic sourcing.
-version: 0.1.0
-author: Agent Blueprint
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # Procurement RFx Processing -- Agent Team Blueprint Pattern

@@ -1,7 +1,8 @@
 ---
 name: agent-fundamentals
 description: >-
-  Agentic AI fundamentals for enterprise. What agents are, when to use them vs.
+  Agentic AI fundamentals for enterprise: what is an agent, agent vs workflow,
+  should I use agents, and how do agents work. Covers when to use agents vs.
   workflows or chatbots, agent anatomy, architecture patterns, decision
   frameworks, and common failure modes. Use when someone is new to agents,
   evaluating whether agents fit their use case, or needs conceptual grounding
@@ -9,9 +10,10 @@ description: >-
   agents, how do agents work, new to agents, agent fundamentals, when to use
   agents, agent design patterns, explain agentic, agent architecture, learn
   about agents, agentic AI concepts.
-version: 0.1.0
-author: Agent Blueprint
 license: Apache-2.0
+metadata:
+  version: 0.2.0
+  author: Agent Blueprint
 ---
 
 # Agentic AI Fundamentals
@@ -240,7 +242,9 @@ not pattern 5 (LangChain, 2026).
 
 40%+ of agentic AI projects will be abandoned by end of 2027 (Gartner, June
 2025). 42% of companies abandoned most AI initiatives in 2025, up from 17%
-in 2024 (S&P Global). Understanding why helps avoid the same mistakes.
+in 2024 (S&P Global, 2025). Understanding why helps avoid the same mistakes.
+Survey figures in this section are as of their cited dates (2024-2026);
+verify before citing.
 
 | Failure | What happens | Evidence |
 |---------|-------------|----------|
@@ -301,14 +305,15 @@ From OpenAI's "Practical Guide to Building Agents":
 
 ---
 
-## The Current Landscape (2026)
+## The Industry Landscape (as of early 2026)
 
-For context on where the industry stands:
+Survey data below is as of early 2026; verify before citing. For context on
+where the industry stood at that point:
 
 - **57% of organizations** have agents in production (LangChain 2026)
-- **Only 6%** fully trust agents for core business processes (HBR/Workato)
+- **Only 6%** fully trust agents for core business processes (HBR/Workato 2026)
 - **30% median productivity gain** in targeted applications (Goldman Sachs)
-- **Quality is the #1 barrier** to moving agents to production (LangChain)
+- **Quality is the #1 barrier** to moving agents to production (LangChain 2026)
 - **89% have observability** implemented; it's considered table stakes
 - **Multi-model is the norm**: 75%+ of orgs use multiple LLM providers
 
