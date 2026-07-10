@@ -2,7 +2,7 @@
 
 Open-source AI agent skills for enterprise deployment. Built for coding agents (Claude Code, Codex, Cursor, Copilot, Windsurf) using the [Agent Skills](https://agentskills.io) open standard.
 
-**7 skills. Zero vendor lock-in. Works with any coding agent.**
+**Foundation skills and blueprint patterns. Zero vendor lock-in. Works with any coding agent.**
 
 ### Skills
 
@@ -177,12 +177,14 @@ These skills follow the [Agent Skills](https://agentskills.io) open standard, su
 
 ## Want more?
 
-These community skills cover the fundamentals. [Agent Blueprint](https://agentblueprint.ai) provides:
+These community skills cover the fundamentals. [Agent Blueprint](https://agentblueprint.ai) is the methodology and platform behind our client engagements. An engagement produces a living blueprint for your organization:
 
-- **Full AI advisory pipeline**: Business profile analysis, AI readiness assessment, use case generation, agent blueprints, business cases, and implementation plans
-- **Expert-level deployment skills**: Battle-tested patterns, version-specific configuration, security hardening, and proprietary gotchas from real enterprise deployments
-- **Living blueprints**: Ongoing advisory with bidirectional state sync, performance monitoring, and strategic recommendations
-- **MCP server + CLI**: `agentblueprint` npm package for programmatic blueprint access
+- **Readiness and priorities**: Business profile analysis, AI readiness assessment, and a force-ranked use-case portfolio
+- **Agent blueprints with economics**: Agent team designs, deterministic business cases, and phased implementation plans
+- **Living blueprints**: Bidirectional state sync, performance monitoring against the business case, and ongoing strategic recommendations
+- **MCP server + CLI**: the `agentblueprint` npm package connects client teams' coding agents to their blueprint registry
+
+Delivered through hands-on engagements, not self-serve signup. Get in touch at [agentblueprint.ai](https://agentblueprint.ai/#contact).
 
 ## Contributing
 
