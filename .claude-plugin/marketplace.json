@@ -4,7 +4,14 @@
     "name": "Agent Blueprint",
     "url": "https://agentblueprint.ai"
   },
+  "description": "Agent Blueprint plugins: measured agent costs, one-page agent summaries, agent self-maps, and open-source agent skills.",
   "plugins": [
+    {
+      "name": "agent-blueprint",
+      "source": "./plugins/agent-blueprint",
+      "version": "0.1.0",
+      "description": "Estimate what an AI agent task costs from measured runs, write a one-page summary of what an agent may do and whether it's worth it, and draw an agent's own map of what it can read and change."
+    },
     {
       "name": "agent-blueprint-skills",
       "source": "./plugins/agent-blueprint-skills",

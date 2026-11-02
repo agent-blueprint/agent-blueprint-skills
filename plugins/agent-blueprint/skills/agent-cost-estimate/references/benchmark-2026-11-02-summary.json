@@ -1,0 +1,852 @@
+{
+ "claude/triage200": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 56548,
+   "min": 56200,
+   "max": 57933
+  },
+  "cache_read": {
+   "median": 40956,
+   "min": 40669,
+   "max": 42941
+  },
+  "output": {
+   "median": 2414,
+   "min": 2227,
+   "max": 2826
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 3,
+   "max": 3
+  },
+  "turns": {
+   "median": 4,
+   "min": 4,
+   "max": 4
+  },
+  "seconds": {
+   "median": 27.6,
+   "min": 27.0,
+   "max": 32.2
+  },
+  "cost_usd": {
+   "median": 0.1818792,
+   "min": 0.1591682,
+   "max": 0.1961974
+  }
+ },
+ "claude/feature": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 43258,
+   "min": 30250,
+   "max": 56400
+  },
+  "cache_read": {
+   "median": 35290,
+   "min": 22911,
+   "max": 47413
+  },
+  "output": {
+   "median": 3549,
+   "min": 3085,
+   "max": 3980
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 2,
+   "max": 6
+  },
+  "turns": {
+   "median": 4,
+   "min": 3,
+   "max": 7
+  },
+  "seconds": {
+   "median": 33.0,
+   "min": 29.3,
+   "max": 38.4
+  },
+  "cost_usd": {
+   "median": 0.14221,
+   "min": 0.10717840000000001,
+   "max": 0.15971459999999998
+  }
+ },
+ "claude/bughunt": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 40143,
+   "min": 39187,
+   "max": 50637
+  },
+  "cache_read": {
+   "median": 32942,
+   "min": 32539,
+   "max": 43371
+  },
+  "output": {
+   "median": 1821,
+   "min": 1736,
+   "max": 2106
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 3,
+   "max": 4
+  },
+  "turns": {
+   "median": 4,
+   "min": 4,
+   "max": 5
+  },
+  "seconds": {
+   "median": 20.5,
+   "min": 19.2,
+   "max": 24.3
+  },
+  "cost_usd": {
+   "median": 0.0989078,
+   "min": 0.0818394,
+   "max": 0.10888220000000001
+  }
+ },
+ "claude/refactor": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 28557,
+   "min": 28547,
+   "max": 29125
+  },
+  "cache_read": {
+   "median": 22561,
+   "min": 22555,
+   "max": 24906
+  },
+  "output": {
+   "median": 1975,
+   "min": 1923,
+   "max": 2037
+  },
+  "tool_calls": {
+   "median": 2,
+   "min": 2,
+   "max": 2
+  },
+  "turns": {
+   "median": 3,
+   "min": 3,
+   "max": 3
+  },
+  "seconds": {
+   "median": 20.5,
+   "min": 19.8,
+   "max": 21.7
+  },
+  "cost_usd": {
+   "median": 0.091943,
+   "min": 0.0773292,
+   "max": 0.09472420000000001
+  }
+ },
+ "claude/sql": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 46286,
+   "min": 44522,
+   "max": 59119
+  },
+  "cache_read": {
+   "median": 42077,
+   "min": 40767,
+   "max": 52543
+  },
+  "output": {
+   "median": 1861,
+   "min": 1349,
+   "max": 2761
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 5
+  },
+  "turns": {
+   "median": 5,
+   "min": 5,
+   "max": 6
+  },
+  "seconds": {
+   "median": 20.9,
+   "min": 17.3,
+   "max": 29.0
+  },
+  "cost_usd": {
+   "median": 0.0880502,
+   "min": 0.0549154,
+   "max": 0.11828860000000001
+  }
+ },
+ "claude/analysis": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 48705,
+   "min": 47203,
+   "max": 49793
+  },
+  "cache_read": {
+   "median": 42017,
+   "min": 40917,
+   "max": 42583
+  },
+  "output": {
+   "median": 2542,
+   "min": 2402,
+   "max": 2826
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 4
+  },
+  "turns": {
+   "median": 5,
+   "min": 5,
+   "max": 5
+  },
+  "seconds": {
+   "median": 26.3,
+   "min": 25.0,
+   "max": 28.0
+  },
+  "cost_usd": {
+   "median": 0.11039860000000001,
+   "min": 0.1085114,
+   "max": 0.1226766
+  }
+ },
+ "claude/clean": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 53563,
+   "min": 40686,
+   "max": 121043
+  },
+  "cache_read": {
+   "median": 45566,
+   "min": 33435,
+   "max": 109724
+  },
+  "output": {
+   "median": 2920,
+   "min": 2429,
+   "max": 4696
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 3,
+   "max": 8
+  },
+  "turns": {
+   "median": 5,
+   "min": 4,
+   "max": 9
+  },
+  "seconds": {
+   "median": 28.7,
+   "min": 24.4,
+   "max": 45.9
+  },
+  "cost_usd": {
+   "median": 0.1308008,
+   "min": 0.113243,
+   "max": 0.20634479999999997
+  }
+ },
+ "claude/longdoc": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 148497,
+   "min": 75494,
+   "max": 169232
+  },
+  "cache_read": {
+   "median": 111799,
+   "min": 63350,
+   "max": 132426
+  },
+  "output": {
+   "median": 1781,
+   "min": 1543,
+   "max": 2016
+  },
+  "tool_calls": {
+   "median": 5,
+   "min": 4,
+   "max": 5
+  },
+  "turns": {
+   "median": 6,
+   "min": 5,
+   "max": 6
+  },
+  "seconds": {
+   "median": 21.1,
+   "min": 18.9,
+   "max": 22.7
+  },
+  "cost_usd": {
+   "median": 0.35113579999999994,
+   "min": 0.150094,
+   "max": 0.35650519999999997
+  }
+ },
+ "claude/corpus": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 101928,
+   "min": 92073,
+   "max": 129437
+  },
+  "cache_read": {
+   "median": 83572,
+   "min": 71393,
+   "max": 111905
+  },
+  "output": {
+   "median": 2250,
+   "min": 1869,
+   "max": 2968
+  },
+  "tool_calls": {
+   "median": 5,
+   "min": 4,
+   "max": 7
+  },
+  "turns": {
+   "median": 6,
+   "min": 5,
+   "max": 8
+  },
+  "seconds": {
+   "median": 24.7,
+   "min": 20.5,
+   "max": 32.3
+  },
+  "cost_usd": {
+   "median": 0.21705860000000002,
+   "min": 0.20805440000000003,
+   "max": 0.2251782
+  }
+ },
+ "claude/replies": {
+  "runs": 5,
+  "passed": 5,
+  "model": "claude-opus-5-5",
+  "input_total": {
+   "median": 70174,
+   "min": 40697,
+   "max": 84881
+  },
+  "cache_read": {
+   "median": 59870,
+   "min": 32490,
+   "max": 74104
+  },
+  "output": {
+   "median": 4591,
+   "min": 3462,
+   "max": 5040
+  },
+  "tool_calls": {
+   "median": 5,
+   "min": 3,
+   "max": 6
+  },
+  "turns": {
+   "median": 6,
+   "min": 4,
+   "max": 7
+  },
+  "seconds": {
+   "median": 44.8,
+   "min": 33.6,
+   "max": 49.9
+  },
+  "cost_usd": {
+   "median": 0.18785800000000002,
+   "min": 0.141362,
+   "max": 0.20178079999999998
+  }
+ },
+ "codex/triage200": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 112811,
+   "min": 112576,
+   "max": 124489
+  },
+  "cache_read": {
+   "median": 96000,
+   "min": 92672,
+   "max": 105088
+  },
+  "output": {
+   "median": 836,
+   "min": 790,
+   "max": 939
+  },
+  "reasoning": {
+   "median": 12,
+   "min": 0,
+   "max": 12
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 4
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 30.8,
+   "min": 25.0,
+   "max": 31.8
+  },
+  "est_api_cost_usd": {
+   "median": 0.30904,
+   "min": 0.303564,
+   "max": 0.346048
+  }
+ },
+ "codex/feature": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 63727,
+   "min": 63602,
+   "max": 72052
+  },
+  "cache_read": {
+   "median": 57088,
+   "min": 55040,
+   "max": 58752
+  },
+  "output": {
+   "median": 1468,
+   "min": 1447,
+   "max": 1531
+  },
+  "reasoning": {
+   "median": 17,
+   "min": 13,
+   "max": 22
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 4
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 37.4,
+   "min": 31.7,
+   "max": 46.8
+  },
+  "est_api_cost_usd": {
+   "median": 0.212764,
+   "min": 0.183696,
+   "max": 0.279078
+  }
+ },
+ "codex/bughunt": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 63611,
+   "min": 63517,
+   "max": 79151
+  },
+  "cache_read": {
+   "median": 58112,
+   "min": 57344,
+   "max": 69504
+  },
+  "output": {
+   "median": 767,
+   "min": 688,
+   "max": 795
+  },
+  "reasoning": {
+   "median": 11,
+   "min": 0,
+   "max": 23
+  },
+  "tool_calls": {
+   "median": 5,
+   "min": 4,
+   "max": 6
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 27.0,
+   "min": 25.0,
+   "max": 31.5
+  },
+  "est_api_cost_usd": {
+   "median": 0.152862,
+   "min": 0.147714,
+   "max": 0.205724
+  }
+ },
+ "codex/refactor": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 64204,
+   "min": 63608,
+   "max": 81506
+  },
+  "cache_read": {
+   "median": 58240,
+   "min": 49536,
+   "max": 70144
+  },
+  "output": {
+   "median": 1186,
+   "min": 1035,
+   "max": 1397
+  },
+  "reasoning": {
+   "median": 8,
+   "min": 0,
+   "max": 30
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 5
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 32.2,
+   "min": 28.3,
+   "max": 35.2
+  },
+  "est_api_cost_usd": {
+   "median": 0.251276,
+   "min": 0.16467,
+   "max": 0.258198
+  }
+ },
+ "codex/sql": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 61093,
+   "min": 61059,
+   "max": 61222
+  },
+  "cache_read": {
+   "median": 56704,
+   "min": 52736,
+   "max": 56704
+  },
+  "output": {
+   "median": 673,
+   "min": 672,
+   "max": 712
+  },
+  "reasoning": {
+   "median": 0,
+   "min": 0,
+   "max": 0
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 3,
+   "max": 3
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 20.7,
+   "min": 17.3,
+   "max": 22.6
+  },
+  "est_api_cost_usd": {
+   "median": 0.134244,
+   "min": 0.133904,
+   "max": 0.173196
+  }
+ },
+ "codex/analysis": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 61437,
+   "min": 61310,
+   "max": 69549
+  },
+  "cache_read": {
+   "median": 53632,
+   "min": 52480,
+   "max": 62336
+  },
+  "output": {
+   "median": 736,
+   "min": 705,
+   "max": 783
+  },
+  "reasoning": {
+   "median": 0,
+   "min": 0,
+   "max": 0
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 3,
+   "max": 3
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 24.7,
+   "min": 22.4,
+   "max": 26.5
+  },
+  "est_api_cost_usd": {
+   "median": 0.170862,
+   "min": 0.139564,
+   "max": 0.17916
+  }
+ },
+ "codex/clean": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 61760,
+   "min": 61462,
+   "max": 70009
+  },
+  "cache_read": {
+   "median": 57088,
+   "min": 53888,
+   "max": 63360
+  },
+  "output": {
+   "median": 845,
+   "min": 808,
+   "max": 868
+  },
+  "reasoning": {
+   "median": 0,
+   "min": 0,
+   "max": 0
+  },
+  "tool_calls": {
+   "median": 3,
+   "min": 3,
+   "max": 3
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 25.6,
+   "min": 21.4,
+   "max": 26.3
+  },
+  "est_api_cost_usd": {
+   "median": 0.147296,
+   "min": 0.144208,
+   "max": 0.17225
+  }
+ },
+ "codex/longdoc": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 150512,
+   "min": 99121,
+   "max": 165630
+  },
+  "cache_read": {
+   "median": 134528,
+   "min": 87040,
+   "max": 138368
+  },
+  "output": {
+   "median": 976,
+   "min": 512,
+   "max": 1031
+  },
+  "reasoning": {
+   "median": 38,
+   "min": 26,
+   "max": 43
+  },
+  "tool_calls": {
+   "median": 6,
+   "min": 6,
+   "max": 8
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 36.2,
+   "min": 26.0,
+   "max": 42.8
+  },
+  "est_api_cost_usd": {
+   "median": 0.344468,
+   "min": 0.25515,
+   "max": 0.436588
+  }
+ },
+ "codex/corpus": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 98111,
+   "min": 81375,
+   "max": 119484
+  },
+  "cache_read": {
+   "median": 83200,
+   "min": 67072,
+   "max": 97408
+  },
+  "output": {
+   "median": 559,
+   "min": 534,
+   "max": 652
+  },
+  "reasoning": {
+   "median": 0,
+   "min": 0,
+   "max": 0
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 3,
+   "max": 5
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 24.6,
+   "min": 22.8,
+   "max": 26.1
+  },
+  "est_api_cost_usd": {
+   "median": 0.26939,
+   "min": 0.237552,
+   "max": 0.350768
+  }
+ },
+ "codex/replies": {
+  "runs": 5,
+  "passed": 5,
+  "model": "gpt-6-astra",
+  "input_total": {
+   "median": 80220,
+   "min": 65131,
+   "max": 80241
+  },
+  "cache_read": {
+   "median": 67456,
+   "min": 59008,
+   "max": 73856
+  },
+  "output": {
+   "median": 1039,
+   "min": 944,
+   "max": 1124
+  },
+  "reasoning": {
+   "median": 0,
+   "min": 0,
+   "max": 0
+  },
+  "tool_calls": {
+   "median": 4,
+   "min": 4,
+   "max": 4
+  },
+  "turns": {
+   "median": 1,
+   "min": 1,
+   "max": 1
+  },
+  "seconds": {
+   "median": 36.1,
+   "min": 30.6,
+   "max": 39.4
+  },
+  "est_api_cost_usd": {
+   "median": 0.216192,
+   "min": 0.173938,
+   "max": 0.252618
+  }
+ }
+}

@@ -4,6 +4,18 @@ Open-source AI agent skills for enterprise deployment. Built for coding agents (
 
 **7 skills. Zero vendor lock-in. Works with any coding agent.**
 
+### New: the agent-blueprint plugin
+
+A separate plugin, [`plugins/agent-blueprint`](plugins/agent-blueprint), for anyone who runs AI agents. It has no server, makes no network calls and collects nothing.
+
+| Skill | What it does |
+|-------|-------------|
+| [agent-cost-estimate](plugins/agent-blueprint/skills/agent-cost-estimate/SKILL.md) | Estimates what an agent task costs from [measured runs](https://agentblueprint.ai/agent-cost-benchmark) instead of a guess, with a typical and a worst case |
+| [agent-one-page](plugins/agent-blueprint/skills/agent-one-page/SKILL.md) | Writes a one-page summary of what an agent may do, what enforces each rule, what it costs and whether it's worth it |
+| [draw-my-agent](plugins/agent-blueprint/skills/draw-my-agent/SKILL.md) | Has the agent map its own tools into reads and changes, flag its riskiest powers, and save one offline HTML page |
+
+Claude Code: `/plugin marketplace add agent-blueprint/agent-blueprint-skills`, then `/plugin install agent-blueprint@agent-blueprint`.
+
 ### Skills
 
 | Skill | What it does |

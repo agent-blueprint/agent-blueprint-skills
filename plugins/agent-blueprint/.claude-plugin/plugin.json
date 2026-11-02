@@ -1,0 +1,13 @@
+{
+  "name": "agent-blueprint",
+  "version": "0.1.0",
+  "description": "Estimate what an AI agent task costs from measured runs, write a one-page summary of what an agent may do and whether it's worth it, and draw an agent's own map of what it can read and change.",
+  "author": {
+    "name": "Agent Blueprint",
+    "url": "https://agentblueprint.ai"
+  },
+  "homepage": "https://agentblueprint.ai/agents",
+  "repository": "https://github.com/agent-blueprint/agent-blueprint-skills",
+  "license": "Apache-2.0",
+  "keywords": ["ai-agents", "agent-cost", "token-usage", "agent-permissions", "agent-governance", "roi", "agent-skills"]
+}

@@ -1,0 +1,592 @@
+<meta charset="utf-8">
+<title>Draw My Agent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one sheet per agent. What it reads enters left, what it changes leaves right, five plain questions sit below. System fonts only, so the file makes no network requests. */
+:root {
+  --bg: #E7EDF4; --paper: #F7FAFD; --grid: rgba(29,79,145,.06); --grid-major: rgba(29,79,145,.11);
+  --ink: #1D4F91; --ink-faint: rgba(29,79,145,.16); --text: #12233A; --muted: #5A6B82;
+  --change: #C2410C; --gate: #8F5A06; --gate-bg: #FFF3D9; --alert: #B42318; --alert-bg: #FDECEA; --good: #2F7D4F; --good-bg: #E6F4EC;
+  --display: "Avenir Next Condensed", "DIN Condensed", "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #081525; --paper: #0E2138; --grid: rgba(169,203,255,.05); --grid-major: rgba(169,203,255,.09);
+    --ink: #A9CBFF; --ink-faint: rgba(169,203,255,.18); --text: #E6EEF8; --muted: #93A6BF;
+    --change: #FF8F5E; --gate: #F2C14E; --gate-bg: #29343B; --alert: #FF8A80; --alert-bg: #3A2730; --good: #74D39C; --good-bg: #1C3A36;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #081525; --paper: #0E2138; --grid: rgba(169,203,255,.05); --grid-major: rgba(169,203,255,.09);
+  --ink: #A9CBFF; --ink-faint: rgba(169,203,255,.18); --text: #E6EEF8; --muted: #93A6BF;
+  --change: #FF8F5E; --gate: #F2C14E; --gate-bg: #29343B; --alert: #FF8A80; --alert-bg: #3A2730; --good: #74D39C; --good-bg: #1C3A36;
+  color-scheme: dark;
+}
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 18px; }
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+.top > div { min-width: 0; }
+.eyebrow { font: 600 13px var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+h1 { margin: 2px 0 0; font: 700 clamp(30px, 5vw, 44px)/1.05 var(--display); text-wrap: balance; }
+.headline { margin: 6px 0 0; max-width: 70ch; font-size: 17px; }
+.side { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.theme { font: 600 13px var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--ink-faint); border-radius: 999px; padding: 6px 13px; cursor: pointer; }
+.theme:hover { border-color: var(--ink); }
+.note { font: 12px var(--mono); color: var(--muted); border: 1px dashed var(--ink-faint); border-radius: 4px; padding: 6px 10px; }
+.try { display: grid; gap: 8px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--ink-faint); border-radius: 6px; }
+.try-k { font: 600 12.5px var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+.try-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.try-line { flex: 1 1 320px; min-width: 0; font: 14px var(--mono); padding: 9px 12px; background: var(--bg); border-radius: 4px; overflow-wrap: anywhere; }
+.copy { font: 600 13px var(--body); color: var(--paper); background: var(--ink); border: 1px solid var(--ink); border-radius: 4px; padding: 8px 14px; cursor: pointer; }
+.totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--paper); border: 1px solid var(--ink-faint); border-radius: 6px; }
+.total { padding: 13px 18px; min-width: 0; }
+.total + .total { border-left: 1px solid var(--ink-faint); }
+.total-v { font: 700 30px/1.1 var(--display); }
+.total-k { font-size: 13.5px; color: var(--muted); }
+.scroll { overflow-x: auto; border-radius: 6px; background: var(--paper); }
+.sheet { display: block; width: 100%; min-width: 880px; height: auto; }
+.frame-o { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.frame-i { fill: url(#gm); stroke: var(--ink); stroke-width: .8; }
+.gl1 { fill: none; stroke: var(--grid); }
+.gl2 { fill: none; stroke: var(--grid-major); }
+.t-head { font: 600 12px var(--display); letter-spacing: .18em; fill: var(--ink); }
+.t-label { font: 500 14px var(--body); fill: var(--text); }
+.t-small { font: 400 12px var(--body); fill: var(--muted); }
+.t-name { font: 700 23px var(--display); fill: var(--text); }
+.t-gate { font: 600 12px var(--body); fill: var(--gate); }
+.t-no { font: 600 12px var(--body); fill: var(--alert); }
+.t-k { font: 500 8.5px var(--mono); letter-spacing: .12em; fill: var(--muted); }
+.t-v { font: 500 12px var(--mono); fill: var(--text); }
+.t-title { font: 700 14px var(--display); letter-spacing: .2em; fill: var(--ink); }
+.t-yes { font: 600 12px var(--body); fill: var(--change); }
+.t-q { font: 700 15px var(--body); fill: var(--paper); }
+.machine { fill: var(--paper); stroke: var(--ink); stroke-width: 2.2; }
+.machine-in { fill: none; stroke: var(--ink-faint); stroke-dasharray: 3 4; }
+.rule { stroke: var(--ink-faint); }
+.port { fill: var(--paper); stroke: var(--ink); stroke-width: 1.6; }
+.port.c { stroke: var(--change); }
+.p-read { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-dasharray: 6 5; }
+.p-change { fill: none; stroke: var(--change); stroke-width: 2.6; stroke-linecap: round; }
+.ring { fill: var(--paper); stroke: var(--ink); stroke-width: 1.8; }
+.ring.c { stroke: var(--change); }
+.ico { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ico.c { stroke: var(--change); }
+.ico.g { stroke: var(--gate); }
+.pill { fill: var(--gate-bg); stroke: var(--gate); stroke-width: 1.5; }
+.pill-no { fill: var(--alert-bg); stroke: var(--alert); stroke-width: 1.5; }
+.pill-q { fill: var(--paper); stroke: var(--muted); stroke-width: 1.3; stroke-dasharray: 3 3; }
+.yes { fill: var(--change); }
+.none { fill: var(--paper); stroke: var(--muted); stroke-width: 2; }
+.slash { stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+.q { fill: var(--muted); }
+.t-q.small { font-size: 11px; }
+.box { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+.line { stroke: var(--ink); stroke-width: .8; }
+.hit { cursor: pointer; outline: none; }
+.hl { fill: transparent; transition: fill .15s; }
+.hit:hover .hl, .hit.on .hl { fill: var(--ink-faint); }
+.hit:focus-visible .hl { fill: var(--ink-faint); stroke: var(--ink); stroke-dasharray: 3 3; }
+.panel { display: grid; gap: 6px; padding: 16px 20px; background: var(--paper); border: 1px solid var(--ink-faint); border-radius: 6px; min-width: 0; }
+.panel-k { font: 600 12.5px var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+.panel-t { margin: 0; font-size: 16px; max-width: 75ch; }
+.panel-s { margin: 0; font: 12.5px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.power { margin: 0; font-size: 14.5px; max-width: 110ch; }
+.power b { font-weight: 600; color: var(--change); }
+.foot { margin: 0; font-size: 13px; color: var(--muted); max-width: 90ch; }
+.tool { display: grid; gap: 12px; padding: 18px 20px; background: var(--paper); border: 1px solid var(--ink-faint); border-radius: 6px; min-width: 0; }
+.tool h2 { margin: 0; font: 700 24px/1.15 var(--display); }
+.tool-sub { margin: 0; max-width: 75ch; color: var(--muted); }
+.check { display: flex; align-items: baseline; gap: 10px; cursor: pointer; }
+.check input { flex: none; }
+.check small { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+.checks { display: grid; gap: 7px; }
+details { border-top: 1px solid var(--ink-faint); padding-top: 10px; }
+summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.rule-rows { display: grid; gap: 6px; margin-top: 10px; }
+.rule-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; padding: 6px 0; border-bottom: 1px solid var(--ink-faint); }
+.rule-row label { min-width: 0; overflow-wrap: anywhere; }
+.rule-row small { color: var(--muted); }
+select { font: 14px var(--body); color: var(--text); background: var(--bg); border: 1px solid var(--ink-faint); border-radius: 4px; padding: 5px 8px; }
+.rules-out { width: 100%; box-sizing: border-box; min-height: 270px; resize: vertical; font: 13px/1.5 var(--mono); color: var(--text); background: var(--bg); border: 1px solid var(--ink-faint); border-radius: 4px; padding: 10px 12px; }
+.tool-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.copy[disabled] { opacity: .45; cursor: not-allowed; }
+.plain { font: 600 13px var(--body); color: var(--ink); background: transparent; border: 1px solid var(--ink-faint); border-radius: 4px; padding: 7px 13px; cursor: pointer; }
+.warn { margin: 0; padding: 9px 12px; font-size: 14px; background: var(--gate-bg); color: var(--text); border-left: 3px solid var(--gate); border-radius: 3px; max-width: 80ch; }
+.items { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.items li { min-width: 0; overflow-wrap: anywhere; }
+.tag { display: inline-block; margin-right: 8px; padding: 1px 8px; font-size: 12px; font-weight: 600; color: var(--gate); background: var(--gate-bg); border-radius: 999px; }
+.item-names { display: block; font: 12.5px var(--mono); color: var(--muted); }
+.big { font-weight: 600; color: var(--change); }
+input[type=file] { max-width: 100%; font: 14px var(--body); color: var(--muted); }
+@media (max-width: 640px) { .totals { grid-template-columns: minmax(0, 1fr); } .total + .total { border-left: none; border-top: 1px solid var(--ink-faint); } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse"><path class="gl1" d="M20 0H0V20"/></pattern>
+    <pattern id="gm" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#g1)"/><path class="gl2" d="M100 0H0V100"/></pattern>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="2"/><path d="M4 7.5l8 6 8-6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H10.5L6 19.5V16H4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8 3.5v4M16 3.5v4"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5M13.5 5l-3 14"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M3.5 7h6l2 2.5h9v9.5h-17z"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M7 9.5l3 2.5-3 2.5M12.5 15h4.5"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c3 3 3 14 0 17M12 3.5c-3 3-3 14 0 17"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+    <symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></symbol>
+    <symbol id="i-money" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15 9c-.6-1-1.7-1.5-3-1.5-1.8 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.300 2.200-3 2.200-1.400 0-2.500-.5-3.100-1.500M12 6v12"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3.500V8M15 3.500V8M6.500 8h11v3.500a5.500 5.500 0 0 1-11 0zM12 17v3.500"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="3.400"/><path d="M5.500 19.500c.9-3.400 3.500-5 6.500-5s5.600 1.600 6.500 5"/></symbol>
+  </defs>
+</svg>
+
+<main class="wrap" id="app"></main>
+
+<script id="blueprint" type="application/json">
+{
+  "version": "0.2",
+  "demo": true,
+  "agent": { "name": "Sam's assistant", "product": "A coding agent on a laptop", "model": "Example model" },
+  "drawn": "2026-10-30",
+  "connections": [
+    { "name": "This computer", "icon": "terminal", "basis": "judged", "asks": true, "risk": "high",
+      "reads": ["read_file", "list_folder", "search_files"], "changes": ["write_file", "edit_file", "run_command"], "unsure": [] },
+    { "name": "Gmail", "icon": "mail", "basis": "judged", "asks": false,
+      "reads": ["search_threads", "get_thread", "list_labels"], "changes": ["send_message", "reply", "create_draft", "trash_message", "label_thread"], "unsure": [] },
+    { "name": "GitHub", "icon": "code", "basis": "declared", "asks": true,
+      "reads": ["list_issues", "get_pull_request", "search_code", "get_file"], "changes": ["create_issue", "comment", "merge_pull_request", "push_files"], "unsure": [] },
+    { "name": "Slack", "icon": "chat", "basis": "declared", "asks": false,
+      "reads": ["read_channel", "search_messages"], "changes": ["send_message", "add_reaction"], "unsure": [] },
+    { "name": "Calendar", "icon": "calendar", "basis": "declared", "asks": null,
+      "reads": ["list_events", "suggest_time"], "changes": ["create_event", "delete_event"], "unsure": [] },
+    { "name": "Notion", "icon": "doc", "basis": "judged", "asks": null,
+      "reads": ["search", "get_page"], "changes": ["update_page", "sync_workspace"], "unsure": ["sync_workspace"] },
+    { "name": "The web", "icon": "web", "basis": "declared", "asks": null,
+      "reads": ["web_search", "fetch_page"], "changes": [], "unsure": [] }
+  ],
+  "checks": {
+    "commands": { "status": "yes", "evidence": "This computer: run_command can run commands." },
+    "messages": { "status": "yes", "evidence": "Gmail send_message and Slack send_message post as Sam." },
+    "delete": { "status": "yes", "evidence": "Gmail trash_message and Calendar delete_event remove things." },
+    "money": { "status": "none_found", "evidence": "No payment or purchasing tools are listed." },
+    "secrets": { "status": "unsure", "evidence": "read_file can open any local file, which may include keys." }
+  },
+  "unseen": "It can't see which account each connection signs in with, or what a tool really does behind its description.",
+  "trim": [
+    { "name": "Notion", "kind": "duplicate", "tools": 4, "why": "It's connected twice, once directly and once through a plug-in. Keep either one." },
+    { "name": "Web search", "kind": "overlap", "tools": 2, "why": "GitHub search_code and The web both find code online. It can't tell which Sam prefers." }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg", DOT = " " + String.fromCharCode(183) + " ";
+  var data;
+  try { data = JSON.parse(document.getElementById("blueprint").textContent); }
+  catch (e) { document.getElementById("app").textContent = "This drawing's data could not be read: " + e.message; return; }
+  var conns = data.connections || [];
+  conns.forEach(function (c) { c.reads = c.reads || []; c.changes = c.changes || []; c.unsure = c.unsure || []; });
+  var nReads = 0, nChanges = 0, nFree = 0, nMust = 0, nJudged = 0, nAll = 0;
+  conns.forEach(function (c) {
+    var n = c.reads.length + c.changes.length;
+    nReads += c.reads.length; nChanges += c.changes.length; nAll += n;
+    if (c.asks !== true) nFree += c.changes.length; else nMust += c.changes.length;
+    if (c.basis !== "declared") nJudged += n;
+  });
+
+  function el(tag, attrs, parent, text) {
+    var n = document.createElementNS(NS, tag);
+    if (attrs) for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function h(tag, cls, parent, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function icon(parent, name, x, y, size, cls) {
+    var known = ["mail","chat","calendar","code","files","terminal","web","doc","data","money","plug","person"];
+    var u = el("use", { "class": cls || "ico", width: size, height: size, x: x - size / 2, y: y - size / 2 }, parent);
+    u.setAttribute("href", "#i-" + (known.indexOf(name) >= 0 ? name : "plug"));
+  }
+  function spread(n, center, step) {
+    var o = [];
+    for (var i = 0; i < n; i++) o.push(center - step * (n - 1) / 2 + step * i);
+    return o;
+  }
+  function short(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "..." : s; }
+  function plural(n, w) { return n + " " + w + (n === 1 ? "" : "s"); }
+  function top(list, key, max) {
+    var s = list.filter(function (c) { return c[key].length; }).sort(function (a, b) {
+      function rank(c) { return key !== "changes" ? 3 : c.risk === "high" && c.icon === "terminal" ? 0 : c.icon === "mail" || c.icon === "chat" ? 1 : c.risk === "high" ? 2 : 3; }
+      return rank(a) - rank(b) || b[key].length - a[key].length;
+    });
+    if (s.length <= max) return s;
+    var rest = s.slice(max - 1), merged = { name: "+" + rest.length + " more", icon: "plug", basis: "judged", asks: null, reads: [], changes: [], unsure: [], members: rest };
+    rest.forEach(function (c) { merged[key] = merged[key].concat(c[key].map(function (t) { return c.name + ": " + t; })); });
+    return s.slice(0, max - 1).concat([merged]);
+  }
+
+  var app = document.getElementById("app");
+  var head = h("header", "top", app), hl = h("div", null, head);
+  h("div", "eyebrow", hl, "Agent Blueprint" + DOT + "Draw my agent");
+  h("h1", null, hl, data.agent && data.agent.name || "My agent");
+  h("p", "headline", hl, "It can change things through " + conns.filter(function (c) { return c.changes.length; }).length + " of its " + plural(conns.length, "connection") + ". " + (!nFree ? "It's set to ask before changing anything." : nFree === nChanges ? "It couldn't confirm that any of its " + plural(nChanges, "action") + " that change things has to ask you first." : nFree + " of its " + plural(nChanges, "action") + " that change things have no confirmed requirement to ask you first."));
+  var side = h("div", "side", head);
+  var tb = h("button", "theme", side);
+  tb.type = "button";
+  function dark() { var t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; }
+  function tl() { tb.textContent = dark() ? "Light" : "Dark"; }
+  tb.addEventListener("click", function () { document.documentElement.setAttribute("data-theme", dark() ? "light" : "dark"); tl(); });
+  tl();
+  h("div", "note", side, data.demo ? "EXAMPLE" + DOT + "made-up agent" : "Stays on this computer");
+
+  if (data.demo) {
+    var t = h("section", "try", app);
+    h("div", "try-k", t, "Try it on your agent");
+    var row = h("div", "try-row", t);
+    var line = "Read agentblueprint.ai/draw.md and draw me a blueprint of yourself.";
+    h("div", "try-line", row, line);
+    var cp = h("button", "copy", row, "Copy");
+    cp.type = "button";
+    cp.addEventListener("click", function () {
+      if (navigator.clipboard) navigator.clipboard.writeText(line).then(function () { cp.textContent = "Copied"; }, function () {});
+    });
+    h("div", "panel-s", t, "This is a made-up sample. Your agent reads its own tool list and writes one file on your computer. Nothing is sent to us.");
+  }
+
+  var tot = h("section", "totals", app);
+  [[nReads, "actions that only read"], [nChanges, "actions that change things"], [nMust, "confirmed to ask you first"]].forEach(function (x) {
+    var d = h("div", "total", tot);
+    h("div", "total-v", d, String(x[0]));
+    h("div", "total-k", d, x[1]);
+  });
+
+  var power = conns.filter(function (c) { return c.risk === "high"; }).map(function (c) { return c.name; });
+  if (power.length) {
+    var pw = h("p", "power", app);
+    h("b", null, pw, "Most powerful: ");
+    pw.appendChild(document.createTextNode(power.join(", ") + "."));
+  }
+
+  var scroll = h("div", "scroll", app);
+  var svg = el("svg", { "class": "sheet", viewBox: "0 0 1200 710", role: "img", "aria-label": "Blueprint drawing of what this agent can read and change" }, scroll);
+  el("rect", { "class": "frame-o", x: 16, y: 16, width: 1168, height: 678 }, svg);
+  el("rect", { "class": "frame-i", x: 28, y: 28, width: 1144, height: 654 }, svg);
+
+  var D = {};
+  function hit(key, label, info) {
+    D[key] = info;
+    return el("g", { "class": "hit", "data-k": key, tabindex: 0, role: "button", "aria-label": label }, svg);
+  }
+  function hl2(g, x, y, w, ht) { el("rect", { "class": "hl", x: x, y: y, width: w, height: ht, rx: 6 }, g); }
+  var BASIS = { declared: "How it knows: the tools declare this themselves.", judged: "How it knows: the agent judged this from tool names and descriptions." };
+  function list(names) { return names.length > 40 ? names.slice(0, 40).join(", ") + ", +" + (names.length - 40) + " more" : names.join(", "); }
+
+  var reads = top(conns, "reads", 7), changes = top(conns, "changes", 7);
+  var ry = spread(reads.length, 285, reads.length > 1 ? Math.min(74, 400 / (reads.length - 1)) : 0);
+  var rp = spread(reads.length, 280, reads.length > 1 ? Math.min(40, 160 / (reads.length - 1)) : 0);
+  el("text", { "class": "t-head", x: 88, y: 50 }, svg, "READS");
+  reads.forEach(function (c, i) {
+    var y = ry[i], g = hit("r" + i, c.name + " reads", ["Reads" + DOT + c.name, "Can look at this without changing it: " + plural(c.reads.length, "action") + ".", list(c.reads) + (c.members ? "" : "\n" + BASIS[c.basis === "declared" ? "declared" : "judged"])]);
+    hl2(g, 66, y - 30, 230, 58);
+    el("path", { "class": "p-read", d: "M132 " + y + " L240 " + y + " C350 " + y + ", 350 " + rp[i] + ", 456 " + rp[i] + " L480 " + rp[i] }, g);
+    el("circle", { "class": "ring", cx: 110, cy: y, r: 22 }, g);
+    icon(g, c.icon, 110, y, 22);
+    el("text", { "class": "t-label", x: 144, y: y - 8 }, g, short(c.name, 24));
+    el("text", { "class": "t-small", x: 144, y: y + 17 }, g, plural(c.reads.length, "action"));
+  });
+
+  var cy = spread(changes.length, 285, changes.length > 1 ? Math.min(74, 400 / (changes.length - 1)) : 0);
+  var cp2 = spread(changes.length, 280, changes.length > 1 ? Math.min(40, 160 / (changes.length - 1)) : 0);
+  el("text", { "class": "t-head", x: 1112, y: 50, "text-anchor": "end" }, svg, "CHANGES");
+  changes.forEach(function (c, i) {
+    var y = cy[i];
+    var why = c.asks === true ? "It has to get your OK first." : c.asks === false ? "It can do this without asking you." : "It can't tell whether it has to ask you first.";
+    var g = hit("c" + i, c.name + " changes", ["Changes" + DOT + c.name, (c.risk === "high" ? "One of its most powerful connections. " : "") + "Can change things here: " + plural(c.changes.length, "action") + ". " + why, list(c.changes) + (c.unsure.length ? "\nNot sure about: " + list(c.unsure) : "") + (c.members ? "" : "\n" + BASIS[c.basis === "declared" ? "declared" : "judged"])]);
+    hl2(g, 900, y - 30, 234, 58);
+    el("path", { "class": "p-change", d: "M720 " + cp2[i] + " C745 " + cp2[i] + ", 745 " + y + ", 770 " + y + " L1068 " + y }, g);
+    el("circle", { "class": "ring c", cx: 1090, cy: y, r: 22 }, g);
+    icon(g, c.icon, 1090, y, 22, "ico c");
+    el("text", { "class": "t-label", x: 1056, y: y - 8, "text-anchor": "end" }, g, short(c.name, 20));
+    if (c.risk === "high") {
+      el("circle", { "class": "yes", cx: 1107, cy: y - 17, r: 8 }, g);
+      el("text", { "class": "t-q small", x: 1107, y: y - 13, "text-anchor": "middle" }, g, "!");
+    }
+    el("text", { "class": "t-small", x: 1056, y: y + 17, "text-anchor": "end" }, g, plural(c.changes.length, "action") + (c.unsure.length ? DOT + c.unsure.length + " unsure" : ""));
+    var w = c.asks === true ? 96 : c.asks === false ? 134 : 124;
+    if (!c.members) {
+      el("rect", { "class": c.asks === true ? "pill" : c.asks === false ? "pill-no" : "pill-q", x: 782, y: y - 12, width: w, height: 24, rx: 12 }, g);
+      el("text", { "class": c.asks === true ? "t-gate" : c.asks === false ? "t-no" : "t-small", x: 782 + w / 2, y: y + 4, "text-anchor": "middle" }, g, c.asks === true ? "Asks you first" : c.asks === false ? "Doesn't have to ask" : "Not sure if it asks");
+    }
+  });
+
+  var mg = hit("agent", "The agent", ["The agent", (data.agent && data.agent.product || "An AI agent") + (data.agent && data.agent.model ? DOT + data.agent.model : "") + ".", data.unseen || ""]);
+  el("rect", { "class": "machine", x: 480, y: 180, width: 240, height: 200, rx: 16 }, mg);
+  el("rect", { "class": "machine-in", x: 488, y: 188, width: 224, height: 184, rx: 11 }, mg);
+  el("circle", { "class": "ring", cx: 600, cy: 232, r: 28 }, mg);
+  icon(mg, "person", 600, 232, 30);
+  el("text", { "class": "t-name", x: 600, y: 288, "text-anchor": "middle" }, mg, short(data.agent && data.agent.name || "My agent", 22));
+  el("line", { "class": "rule", x1: 505, y1: 304, x2: 695, y2: 304 }, mg);
+  el("text", { "class": "t-label", x: 600, y: 328, "text-anchor": "middle" }, mg, plural(conns.length, "connection"));
+  el("text", { "class": "t-small", x: 600, y: 348, "text-anchor": "middle" }, mg, "Tap for what it can't see");
+  el("rect", { "class": "hl", x: 480, y: 180, width: 240, height: 200, rx: 16 }, mg);
+  rp.forEach(function (y) { el("circle", { "class": "port", cx: 480, cy: y, r: 4 }, svg); });
+  cp2.forEach(function (y) { el("circle", { "class": "port c", cx: 720, cy: y, r: 4 }, svg); });
+
+  var QS = [["commands", "Run commands"], ["messages", "Send as you"], ["delete", "Delete things"], ["money", "Spend money"], ["secrets", "Read secrets"]];
+  var qx = spread(5, 600, 172);
+  el("text", { "class": "t-head", x: 600, y: 512, "text-anchor": "middle" }, svg, "CAN IT...");
+  QS.forEach(function (q, i) {
+    var c = (data.checks || {})[q[0]] || { status: "unsure", evidence: "The agent didn't answer this." };
+    var x = qx[i], y = 545, word = c.status === "yes" ? "Yes" : c.status === "none_found" ? "None found" : "Not sure";
+    var g = hit("q" + i, q[1] + ": " + word, ["Can it" + DOT + q[1], word + ". " + (c.status === "none_found" ? "That means no such tool was found, which isn't proof it can't." : ""), c.evidence || ""]);
+    hl2(g, x - 78, y - 22, 156, 68);
+    if (c.status === "yes") {
+      el("circle", { "class": "yes", cx: x, cy: y, r: 13 }, g);
+      el("text", { "class": "t-q", x: x, y: y + 5, "text-anchor": "middle" }, g, "!");
+    } else if (c.status === "none_found") {
+      el("circle", { "class": "none", cx: x, cy: y, r: 12 }, g);
+      el("line", { "class": "slash", x1: x - 8.500, y1: y - 8.500, x2: x + 8.500, y2: y + 8.500 }, g);
+    } else {
+      el("circle", { "class": "q", cx: x, cy: y, r: 13 }, g);
+      el("text", { "class": "t-q", x: x, y: y + 5, "text-anchor": "middle" }, g, "?");
+    }
+    el("text", { "class": "t-label", x: x, y: y + 27, "text-anchor": "middle" }, g, q[1]);
+    el("text", { "class": c.status === "yes" ? "t-yes" : "t-small", x: x, y: y + 43, "text-anchor": "middle" }, g, word);
+  });
+
+  el("line", { "class": "line", x1: 28, y1: 616, x2: 1172, y2: 616 }, svg);
+  el("text", { "class": "t-k", x: 42, y: 636 }, svg, "KEY");
+  el("path", { "class": "p-read", d: "M42 658 L84 658" }, svg);
+  el("text", { "class": "t-small", x: 92, y: 662 }, svg, "Reads only");
+  el("circle", { "class": "yes", cx: 370, cy: 658, r: 8 }, svg);
+  el("text", { "class": "t-q small", x: 370, y: 662, "text-anchor": "middle" }, svg, "!");
+  el("text", { "class": "t-small", x: 384, y: 662 }, svg, "Most powerful");
+  el("path", { "class": "p-change", d: "M180 658 L222 658" }, svg);
+  el("text", { "class": "t-small", x: 230, y: 662 }, svg, "Can change things");
+  el("line", { "class": "line", x1: 812, y1: 616, x2: 812, y2: 682 }, svg);
+  el("text", { "class": "t-title", x: 826, y: 642 }, svg, "AGENT BLUEPRINT");
+  el("text", { "class": "t-k", x: 826, y: 660 }, svg, "DRAWN");
+  el("text", { "class": "t-v", x: 870, y: 661 }, svg, String(data.drawn || ""));
+  el("text", { "class": "t-k", x: 980, y: 660 }, svg, "HOW IT KNOWS");
+  el("text", { "class": "t-v", x: 1060, y: 661 }, svg, !nAll ? "No tools listed" : nJudged === nAll ? "All judged" : nJudged * 2 > nAll ? "Mostly judged" : nJudged * 2 === nAll ? "Half judged" : "Mostly declared");
+
+  var panel = h("section", "panel", app);
+  panel.setAttribute("aria-live", "polite");
+  var pk = h("div", "panel-k", panel), pt = h("p", "panel-t", panel), ps = h("p", "panel-s", panel);
+  ps.style.whiteSpace = "pre-line";
+  function intro() {
+    pk.textContent = "How to read this";
+    pt.textContent = "Left is what the agent can look at. Right is what it can change, and whether it has to ask you. Tap anything to see the actual tools.";
+    ps.textContent = "This is the agent describing itself. " + (nAll && nJudged / nAll > 0.5 ? "Most of it is the agent's reading of tool names, not proof of what they do." : "Tools can declare the wrong thing, so treat this as a good first look and not as proof.");
+  }
+  intro();
+  var hits = svg.querySelectorAll(".hit");
+  function show(node) {
+    hits.forEach(function (x) { x.classList.toggle("on", x === node); });
+    var d = D[node.getAttribute("data-k")];
+    pk.textContent = d[0]; pt.textContent = d[1]; ps.textContent = d[2];
+  }
+  hits.forEach(function (node) {
+    node.addEventListener("click", function () { show(node); });
+    node.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(node); } });
+  });
+
+  // Your rules: these can only restrict. Connection names are stripped before they go into text an agent will read.
+  function safeName(s) { return String(s).replace(/[^\p{L}\p{N} ._()-]/gu, "").trim().slice(0, 40) || "this connection"; }
+  var RULES = [
+    ["messages", "Send as you", "Ask me before sending any message or email as me."],
+    ["delete", "Delete things", "Ask me before deleting anything."],
+    ["money", "Spend money", "Ask me before spending money or using paid credits."],
+    ["commands", "Run commands", "Ask me before running a command on this computer."],
+    ["secrets", "Read secrets", "Never open or print passwords, keys or tokens. If a task seems to need one, stop and ask me."]
+  ];
+  var WORD = { yes: "Yes", none_found: "None found", unsure: "Not sure" };
+  var rs = h("section", "tool", app);
+  h("h2", null, rs, "Your rules");
+  h("p", "tool-sub", rs, "Choose what your agent has to check with you. Then copy the text below and paste it to your agent, so it follows these in future sessions too.");
+  var chk = h("div", "checks", rs), boxes = [];
+  RULES.forEach(function (r) {
+    var l = h("label", "check", chk), b = h("input", null, l);
+    b.type = "checkbox"; b.addEventListener("change", writeRules);
+    var ans = (data.checks || {})[r[0]];
+    h("span", null, l, r[2]);
+    h("small", null, l, "Can it? " + (ans && WORD[ans.status] || "Not sure"));
+    boxes.push({ box: b, text: r[2] });
+  });
+  var withChanges = conns.filter(function (c) { return c.changes.length; }).sort(function (a, b) { return (b.risk === "high") - (a.risk === "high") || b.changes.length - a.changes.length; });
+  var picks = [];
+  if (withChanges.length) {
+    var det = h("details", null, rs);
+    h("summary", null, det, "Set a rule for one connection (" + withChanges.length + ")");
+    var rows = h("div", "rule-rows", det);
+    withChanges.forEach(function (c, i) {
+      var row = h("div", "rule-row", rows), lab = h("label", null, row);
+      lab.htmlFor = "rule-c" + i;
+      lab.appendChild(document.createTextNode(c.name + " "));
+      h("small", null, lab, plural(c.changes.length, "action"));
+      var sel = h("select", null, row);
+      sel.id = "rule-c" + i;
+      [["", "No rule"], ["ask", "Ask me first"], ["never", "Never change anything"]].forEach(function (o) { var op = h("option", null, sel, o[1]); op.value = o[0]; });
+      sel.addEventListener("change", writeRules);
+      picks.push({ sel: sel, name: safeName(c.name) });
+    });
+  }
+  var out = h("textarea", "rules-out", rs);
+  out.readOnly = true; out.setAttribute("aria-label", "Rules to paste to your agent");
+  var outRow = h("div", "tool-row", rs), rc = h("button", "copy", outRow, "Copy rules");
+  rc.type = "button";
+  h("p", "warn", rs, "These are instructions, not a lock. A well-behaved agent follows them, but the only hard stop is your product's own permission settings.");
+  function writeRules() {
+    var lines = boxes.filter(function (b) { return b.box.checked; }).map(function (b) { return "- " + b.text; });
+    picks.forEach(function (p) {
+      if (p.sel.value === "ask") lines.push('- Ask me before changing anything through "' + p.name + '".');
+      if (p.sel.value === "never") lines.push('- Never change anything through "' + p.name + '". You can still read from it.');
+    });
+    rc.disabled = !lines.length; rc.textContent = "Copy rules";
+    out.value = !lines.length ? "Choose a rule above and the text to paste will appear here." : [
+      "Please add the rules below to your standing instructions, the place you read at the start of every session. First show me the exact text and where it will go, and tell me if it only applies to this folder. If an earlier block like this is already saved, replace it. Don't change any permission settings. If you have nowhere to save rules, tell me.",
+      "",
+      "=== Agent Blueprint rules start ===",
+      "These rules only make you more careful. They don't allow anything new or replace any other approval."
+    ].concat(lines, ["=== Agent Blueprint rules end ==="]).join("\n");
+  }
+  writeRules();
+  rc.addEventListener("click", function () {
+    function done() { rc.textContent = "Copied"; }
+    function fallback() { out.select(); try { if (document.execCommand("copy")) return done(); } catch (e) {} rc.textContent = "Press copy on your keyboard"; }
+    if (navigator.clipboard) navigator.clipboard.writeText(out.value).then(done, fallback); else fallback();
+  });
+
+  // What to trim: the agent's suggestions. Nothing here removes anything.
+  if (Array.isArray(data.trim)) {
+    var ts = h("section", "tool", app);
+    h("h2", null, ts, "What to trim");
+    if (!data.trim.length) h("p", "tool-sub", ts, "Your agent didn't see any duplicates or overlap in its tool list.");
+    else {
+      h("p", "tool-sub", ts, "Fewer tools leave your agent fewer ways to pick the wrong one. These are its suggestions from its tool list, and nothing has been removed.");
+      var tl2 = h("ul", "items", ts);
+      data.trim.forEach(function (x) {
+        var li = h("li", null, tl2);
+        h("span", "tag", li, x.kind === "duplicate" ? "Duplicate" : "Overlap");
+        h("b", null, li, String(x.name || "Unnamed"));
+        if (x.tools) li.appendChild(document.createTextNode(DOT + "about " + plural(x.tools, "tool")));
+        h("div", null, li, String(x.why || ""));
+      });
+    }
+  }
+
+  // What changed: compared here in the page by tool name, so regrouping connections doesn't count as a change.
+  function tally(d) {
+    var m = {};
+    (d.connections || []).forEach(function (c) {
+      [["reads", 0], ["changes", 1]].forEach(function (k) {
+        (c[k[0]] || []).forEach(function (t) {
+          // Agents may or may not keep a tool's prefix (mcp__gmail__send vs send), so match on the last part.
+          var key = String(t).split("__").pop().toLowerCase(), e = m[key] || (m[key] = { n: [0, 0], where: c.name, shown: t });
+          e.n[k[1]]++;
+        });
+      });
+    });
+    return m;
+  }
+  function compare(prev) {
+    var a = tally(prev), b = tally(data), r = { addC: [], addR: [], gone: [], toC: [], toR: [], asks: [], checks: [] };
+    Object.keys(b).forEach(function (t) {
+      var was = a[t] ? a[t].n : [0, 0], now = b[t].n, wasAll = was[0] + was[1], nowAll = now[0] + now[1], label = b[t].where + ": " + b[t].shown;
+      if (nowAll > wasAll) (now[1] > was[1] ? r.addC : r.addR).push(label);
+      else if (nowAll === wasAll && now[1] > was[1]) r.toC.push(label);
+      else if (nowAll === wasAll && now[1] < was[1]) r.toR.push(label);
+    });
+    Object.keys(a).forEach(function (t) { var e = a[t], n = b[t] ? b[t].n[0] + b[t].n[1] : 0; if (n < e.n[0] + e.n[1]) r.gone.push(e.where + ": " + e.shown); });
+    var askWord = function (v) { return v === true ? "Asks you first" : v === false ? "Doesn't have to ask" : "Not sure"; };
+    (prev.connections || []).forEach(function (p) {
+      conns.forEach(function (c) { if (c.name === p.name && (c.asks === true ? 1 : c.asks === false ? 0 : 2) !== (p.asks === true ? 1 : p.asks === false ? 0 : 2)) r.asks.push(c.name + ": " + askWord(p.asks) + " -> " + askWord(c.asks)); });
+    });
+    QS.forEach(function (q) {
+      var x = (prev.checks || {})[q[0]], y = (data.checks || {})[q[0]];
+      if (x && y && x.status !== y.status) r.checks.push(q[1] + ": " + (WORD[x.status] || "Not sure") + " -> " + (WORD[y.status] || "Not sure"));
+    });
+    return r;
+  }
+  function namesOf(list) { return list.length > 40 ? list.slice(0, 40).join(", ") + ", +" + (list.length - 40) + " more" : list.join(", "); }
+  var cs = h("section", "tool", app);
+  h("h2", null, cs, "What changed");
+  h("p", "tool-sub", cs, "Your agent doesn't remember its tools between sessions, so a new one can arrive unnoticed. Choose an earlier drawing to compare. The file stays on this computer.");
+  var csRow = h("div", "tool-row", cs), csIn = h("input", null, csRow);
+  csIn.type = "file"; csIn.accept = ".html,.json"; csIn.setAttribute("aria-label", "Choose an earlier drawing");
+  var csOut = h("div", "checks", cs);
+  csOut.setAttribute("aria-live", "polite");
+  function showCompare(prev) {
+    csOut.textContent = "";
+    var r = compare(prev), groups = [
+      ["New, and can change things", r.addC, true],
+      ["New, read-only", r.addR],
+      ["Gone", r.gone],
+      ["Now sorted as changing things", r.toC, true],
+      ["Now sorted as read-only", r.toR],
+      ["Approval answer changed", r.asks, true],
+      ["Five questions changed", r.checks, true]
+    ], any = false;
+    h("p", "tool-sub", csOut, "Compared with the drawing from " + String(prev.drawn || "an unknown date") + ".");
+    // Agents describe their product in free text, so judge "same agent?" by how many tools the drawings share.
+    var ka = Object.keys(tally(prev)), kb = tally(data), shared = ka.filter(function (t) { return kb[t]; }).length;
+    if (shared * 2 < Math.max(ka.length, Object.keys(kb).length)) h("p", "warn", csOut, "These drawings share fewer than half their tools, so they may be two different agents. If so, this doesn't show what changed over time.");
+    var ul = h("ul", "items", csOut);
+    groups.forEach(function (g) {
+      if (!g[1].length) return;
+      any = true;
+      var li = h("li", null, ul);
+      h("b", g[2] ? "big" : null, li, g[0] + ": " + g[1].length);
+      h("span", "item-names", li, namesOf(g[1]));
+    });
+    if (!any) h("p", null, csOut, "No tools, approval answers or five-question answers changed.");
+    h("p", "foot", csOut, "This is two self-descriptions compared by tool name. Anything here, especially sorted-as and answer changes, may only mean the agent listed or judged it differently this time. Check before you act on it.");
+  }
+  csIn.addEventListener("change", function () {
+    var f = csIn.files && csIn.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onerror = function () { csOut.textContent = "That file couldn't be read."; };
+    rd.onload = function () {
+      var prev;
+      try {
+        var txt = String(rd.result), node = new DOMParser().parseFromString(txt, "text/html").getElementById("blueprint");
+        prev = JSON.parse(node ? node.textContent : txt);
+        if (!prev || !Array.isArray(prev.connections)) throw new Error("no connections");
+        if (prev.demo) { csOut.textContent = "That's the made-up sample, not an earlier drawing of your agent."; return; }
+      } catch (e) { csOut.textContent = "That doesn't look like an earlier drawing. Choose a file your agent made with this template."; return; }
+      showCompare(prev);
+    };
+    rd.readAsText(f);
+  });
+  if (data.demo) {
+    var ex = h("button", "plain", csRow, "Show an example");
+    ex.type = "button";
+    ex.addEventListener("click", function () {
+      var was = JSON.parse(document.getElementById("blueprint").textContent);
+      was.drawn = "2026-09-30";
+      was.connections.forEach(function (c) {
+        if (c.name === "Gmail") c.changes = c.changes.filter(function (t) { return t !== "send_message" && t !== "trash_message"; });
+        if (c.name === "Slack") c.asks = true;
+        if (c.name === "Notion") { c.changes = ["update_page"]; c.reads = c.reads.concat(["sync_workspace"]); c.unsure = []; }
+      });
+      was.connections = was.connections.filter(function (c) { return c.name !== "Calendar"; });
+      was.checks.delete = { status: "unsure", evidence: "" };
+      showCompare(was);
+    });
+  }
+
+  h("p", "foot", app, data.demo ? "Example only. Sam's assistant and its tools are made up to show the format." : "Made by your agent on your computer. It needs no internet connection and sends nothing.");
+})();
+</script>
