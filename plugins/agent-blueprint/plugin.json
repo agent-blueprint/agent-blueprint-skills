@@ -5,11 +5,49 @@
   "description": "Estimate what an AI agent task costs from measured runs, write a one-page summary of what an agent may do and whether it's worth it, and draw an agent's own map of what it can read and change.",
   "author": {
     "name": "Agent Blueprint",
-    "url": "https://agentblueprint.ai"
+    "url": "https://agentblueprint.ai",
+    "email": "info@agentblueprint.ai"
   },
   "homepage": "https://agentblueprint.ai/agents",
   "repository": "https://github.com/agent-blueprint/agent-blueprint-skills",
   "license": "Apache-2.0",
-  "keywords": ["ai-agents", "agent-cost", "token-usage", "agent-permissions", "agent-governance", "roi", "agent-skills"],
-  "skills": "./skills/"
+  "keywords": [
+    "ai-agents",
+    "agent-cost",
+    "token-usage",
+    "agent-permissions",
+    "agent-governance",
+    "roi",
+    "agent-skills"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Agent Blueprint",
+        "shortDescription": "Agent costs, rules and maps",
+        "longDescription": "Three skills for people who run AI agents and need plain answers about them.\n\nAgent cost estimate: estimates what an agent task costs from measured runs instead of a guess. It starts from a benchmark of ten everyday jobs, each run five times on two coding agents, scales by how much your agent has to read, and gives a typical and a worst-case cost with the prices to check.\n\nOne-page agent summary: writes the page a manager, security reviewer or finance approver needs, covering what the agent may read and change, what enforces each rule, who owns it, what it costs and whether it's worth it. Unknowns are marked Open with who decides.\n\nDraw my agent: has the agent map its own tools and connections, sort them into reads and changes, flag its riskiest powers, and save the map as one offline HTML page.\n\nLimits: cost estimates are only as good as the benchmark jobs are similar to yours, and the agent can only map what it can see in its own setup. The plugin has no server, makes no network calls and collects no data.",
+        "developerName": "Agent Blueprint",
+        "category": "Productivity",
+        "capabilities": [
+          "Estimate agent task cost",
+          "Write a one-page agent summary",
+          "Draw an agent's access map"
+        ],
+        "websiteURL": "https://agentblueprint.ai/agents",
+        "supportURL": "https://agentblueprint.ai/#contact",
+        "privacyPolicyURL": "https://agentblueprint.ai/privacy",
+        "defaultPrompt": [
+          "Roughly what would it cost per month for an agent to triage 300 support emails a day?",
+          "Write one page on what our invoice agent is allowed to do and whether it's worth it.",
+          "Draw a picture of what you can access and change."
+        ],
+        "brandColor": "#1E3A5F",
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png"
+      },
+      "publication": {
+        "release_notes": "First release: agent cost estimate, one-page agent summary, and draw my agent."
+      }
+    }
+  }
 }
