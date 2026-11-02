@@ -9,5 +9,16 @@
   "homepage": "https://agentblueprint.ai/agents",
   "repository": "https://github.com/agent-blueprint/agent-blueprint-skills",
   "license": "Apache-2.0",
-  "keywords": ["ai-agents", "agent-cost", "token-usage", "agent-permissions", "agent-governance", "roi", "agent-skills"]
+  "keywords": [
+    "ai-agents",
+    "agent-cost",
+    "token-usage",
+    "agent-permissions",
+    "agent-governance",
+    "roi",
+    "agent-skills"
+  ],
+  "privacyPolicyUrl": "https://agentblueprint.ai/privacy",
+  "supportUrl": "https://agentblueprint.ai/#contact",
+  "documentationUrl": "https://agentblueprint.ai/agents"
 }
