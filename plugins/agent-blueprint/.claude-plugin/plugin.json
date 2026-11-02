@@ -20,5 +20,6 @@
   ],
   "privacyPolicyUrl": "https://agentblueprint.ai/privacy",
   "supportUrl": "https://agentblueprint.ai/#contact",
-  "documentationUrl": "https://agentblueprint.ai/agents"
+  "documentationUrl": "https://agentblueprint.ai/agents",
+  "icon": "./.claude-plugin/icon.png"
 }
