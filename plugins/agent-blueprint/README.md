@@ -16,8 +16,10 @@ Three skills for people who run AI agents and need plain answers about them: wha
 
 ## What it runs and sends
 
-Nothing leaves your machine because of this plugin. It has no MCP server, no hooks, no scripts and no network calls. The skills are instructions plus reference files (the benchmark results, a page template, an example page and an HTML template). The only file it writes is the one you ask for, such as `my-agent-blueprint.html` from draw-my-agent, saved in your working folder. That HTML file loads nothing from the internet.
+The skills are instructions plus reference files (the benchmark results, a page template, an example page and an HTML template), and they work entirely on your machine. The only file they write is the one you ask for, such as `my-agent-blueprint.html`, and that HTML file loads nothing from the internet.
+
+From version 0.2.0 the plugin also declares an optional remote tools server, `https://agentblueprint.ai/mcp`, in `mcp.json`. Where your agent connects to it, it sends only what each tool needs: a job name, sizes and prices for a cost estimate, the text of a one-page summary to check, or the agent's own list of connections and tool names to draw. The server is read-only, needs no sign-in, and keeps nothing you send. The skills work without it. There are no hooks and no scripts.
 
 ## About
 
-Made by Agent Blueprint, https://agentblueprint.ai. Licensed under Apache-2.0. Privacy: https://agentblueprint.ai/privacy. Questions: info@agentblueprint.ai.
+Made by Agent Blueprint, https://agentblueprint.ai. Licensed under Apache-2.0. Privacy: https://agentblueprint.ai/privacy. Terms: https://agentblueprint.ai/terms. Questions: info@agentblueprint.ai.

@@ -16,6 +16,8 @@ Use measured numbers instead of guessing. `references/benchmark-2026-11-02.md` h
 5. Give a typical figure and a worst case. Most jobs' worst run was within 1.3x of typical, and one was 2.3x, so use at least 1.5x for a budget.
 6. For a recurring job, multiply by runs per month, and say that people's time to review the work is usually a bigger cost than tokens.
 
+If the Agent Blueprint tools are connected, use `list_benchmark_jobs` for step 2 and `estimate_agent_cost` for steps 3 to 6 instead of doing the arithmetic yourself: give it the job, the real input size in the job's unit, runs per month, and current prices if you know them. Without the tools, work from the reference files as above.
+
 ## What to tell the person
 
 - The estimate, its range, and the benchmark job you based it on.

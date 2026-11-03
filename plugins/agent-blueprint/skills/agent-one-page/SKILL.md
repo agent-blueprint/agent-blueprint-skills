@@ -19,4 +19,6 @@ Fill in `references/template.md`. `references/example.md` is a finished example 
 
 Save the page as Markdown in the person's folder unless they ask for something else, then tell them which items are still `Open`.
 
+If the Agent Blueprint tools are connected, run `check_agent_one_page` on the finished page and fix what it reports before handing it over. It checks structure only, so the rules above still apply.
+
 Published by Agent Blueprint: https://agentblueprint.ai/agent-one-page-template

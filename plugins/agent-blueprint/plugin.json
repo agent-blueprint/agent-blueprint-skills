@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "agent-blueprint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Estimate what an AI agent task costs from measured runs, write a one-page summary of what an agent may do and whether it's worth it, and draw an agent's own map of what it can read and change.",
   "author": {
     "name": "Agent Blueprint",
@@ -25,7 +25,7 @@
       "interface": {
         "displayName": "Agent Blueprint",
         "shortDescription": "Agent costs, rules and maps",
-        "longDescription": "Three skills for people who run AI agents and need plain answers about them.\n\nAgent cost estimate: estimates what an agent task costs from measured runs instead of a guess. It starts from a benchmark of ten everyday jobs, each run five times on two coding agents, scales by how much your agent has to read, and gives a typical and a worst-case cost with the prices to check.\n\nOne-page agent summary: writes the page a manager, security reviewer or finance approver needs, covering what the agent may read and change, what enforces each rule, who owns it, what it costs and whether it's worth it. Unknowns are marked Open with who decides.\n\nDraw my agent: has the agent map its own tools and connections, sort them into reads and changes, flag its riskiest powers, and save the map as one offline HTML page.\n\nLimits: cost estimates are only as good as the benchmark jobs are similar to yours, and the agent can only map what it can see in its own setup. The plugin has no server, makes no network calls and collects no data.",
+        "longDescription": "Three skills for people who run AI agents and need plain answers about them.\n\nAgent cost estimate: estimates what an agent task costs from measured runs instead of a guess. It starts from a benchmark of ten everyday jobs, each run five times on two coding agents, scales by how much your agent has to read, and gives a typical and a worst-case cost with the prices to check.\n\nOne-page agent summary: writes the page a manager, security reviewer or finance approver needs, covering what the agent may read and change, what enforces each rule, who owns it, what it costs and whether it's worth it. Unknowns are marked Open with who decides.\n\nDraw my agent: has the agent map its own tools and connections, sort them into reads and changes, flag its riskiest powers, and save the map as one offline HTML page.\n\nLimits: cost estimates are only as good as the benchmark jobs are similar to yours, and the agent can only map what it can see in its own setup. Its tools server at agentblueprint.ai/mcp is read-only, needs no sign-in and keeps nothing you send.",
         "developerName": "Agent Blueprint",
         "category": "Productivity",
         "capabilities": [
@@ -43,10 +43,63 @@
         ],
         "brandColor": "#1E3A5F",
         "composerIcon": "./assets/logo.png",
-        "logo": "./assets/logo.png"
+        "logo": "./assets/logo.png",
+        "termsOfServiceURL": "https://agentblueprint.ai/terms"
       },
       "publication": {
-        "release_notes": "First release: agent cost estimate, one-page agent summary, and draw my agent."
+        "release_notes": "Adds a read-only tools server: cost estimates from the measured benchmark, a one-page summary check, and the access-map renderer."
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Estimate a recurring triage job's monthly cost",
+              "prompt": "Roughly what would it cost per month for an agent to triage 300 support emails a day, about 150 words each?",
+              "tools_triggered": "list_benchmark_jobs, estimate_agent_cost",
+              "expected_behavior": "Picks the email-triage benchmark job, scales by 45,000 words a day, and returns a typical and a budget monthly cost with the prices it assumed."
+            },
+            {
+              "description": "Estimate tokens for a long document",
+              "prompt": "How many tokens will an agent use to summarize a 40,000-word contract?",
+              "tools_triggered": "estimate_agent_cost",
+              "expected_behavior": "Uses the long-contract job scaled to 40,000 words and returns input and output tokens per run with a typical and a budget dollar figure."
+            },
+            {
+              "description": "Check a one-page agent summary",
+              "prompt": "Check this one-page summary of our refund agent before I send it to my manager: (paste the example page from https://agentblueprint.ai/templates/agent-one-page/v1/example.md)",
+              "tools_triggered": "check_agent_one_page",
+              "expected_behavior": "Reports that the page passes the structure check and lists any warnings, such as length or Open items without a decider."
+            },
+            {
+              "description": "Draw an agent's access map",
+              "prompt": "Here's what my agent can access: Gmail (search and send), Google Calendar (read events), and a shell on my laptop. Draw it.",
+              "tools_triggered": "render_agent_map",
+              "expected_behavior": "Returns a single offline HTML page showing three connections, marks the shell as high risk, and tells the user to save it as my-agent-blueprint.html."
+            },
+            {
+              "description": "Find the closest benchmark job",
+              "prompt": "Which of your measured jobs is closest to cleaning up a 2,000-row customer spreadsheet, and what did it cost?",
+              "tools_triggered": "list_benchmark_jobs",
+              "expected_behavior": "Names the data-cleanup job (360 messy rows), gives its measured typical and worst-case cost for both agents, and notes it scales by rows."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Unrelated price question",
+              "prompt": "What's the price of a share of NVIDIA today?"
+            },
+            {
+              "description": "Ordinary coding work",
+              "prompt": "Fix the failing test in this repo."
+            },
+            {
+              "description": "Request to change access",
+              "prompt": "Remove my agent's access to Salesforce."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin does not sell products or process payments."
       }
     }
   }

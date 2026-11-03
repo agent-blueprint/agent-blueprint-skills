@@ -6,7 +6,7 @@ Open-source AI agent skills for enterprise deployment. Built for coding agents (
 
 ### New: the agent-blueprint plugin
 
-A separate plugin, [`plugins/agent-blueprint`](plugins/agent-blueprint), for anyone who runs AI agents. It has no server, makes no network calls and collects nothing.
+A separate plugin, [`plugins/agent-blueprint`](plugins/agent-blueprint), for anyone who runs AI agents. Its skills work entirely on your machine; from 0.2.0 it can also use an optional read-only tools server at https://agentblueprint.ai/mcp that keeps nothing you send.
 
 | Skill | What it does |
 |-------|-------------|

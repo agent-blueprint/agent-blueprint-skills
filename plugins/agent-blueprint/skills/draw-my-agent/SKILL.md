@@ -44,6 +44,8 @@ In `unseen`, write one or two sentences about what you can't tell about yourself
 
 ## Step 6: Fill in the drawing
 
+If you can save files, fill in the template yourself as below; it's quickest. If you can't save files but the Agent Blueprint tools are connected, pass your answers to `render_agent_map` instead and give the person the HTML it returns to save.
+
 Copy `assets/template.html` to `my-agent-blueprint.html` in the person's current folder. If that file exists, leave it and use `my-agent-blueprint-YYYY-MM-DD.html` (add `-2` if needed). Replace everything inside `<script id="blueprint" type="application/json">` with your answers in this shape, removing all sample data including its `demo` field:
 
 ```json
