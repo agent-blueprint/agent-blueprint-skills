@@ -54,6 +54,6 @@ Read SKILL.md files directly from this repository.
 
 ## About
 Built by Agent Blueprint (https://agentblueprint.ai). Apache 2.0 licensed.
-Enterprise AI advisory platform that generates agent blueprints, business cases, and implementation plans through a multi-stage LLM pipeline.
+Agent Blueprint is a methodology and platform for designing and deploying enterprise AI agent teams: readiness assessment, ranked use-case portfolio, agent team blueprints with deterministic business cases, and machine-readable delivery that coding agents build from. Delivered through hands-on engagements, not self-serve signup.
 
-For expert-level deployment with battle-tested patterns, version-specific configuration, and strategic advisory, visit https://agentblueprint.ai.
+To work with Agent Blueprint, visit https://agentblueprint.ai/#contact.
