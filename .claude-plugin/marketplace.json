@@ -9,7 +9,7 @@
     {
       "name": "agent-blueprint",
       "source": "./plugins/agent-blueprint",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "description": "Estimate what an AI agent task costs from measured runs, write a one-page summary of what an agent may do and whether it's worth it, and draw an agent's own map of what it can read and change."
     },
     {
